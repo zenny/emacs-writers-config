@@ -1,4 +1,4 @@
-;;; ====== Global settings =====
+fv;;; ====== Global settings =====
 
 ;; ===== Theme and font ======
 
@@ -26,11 +26,11 @@
 (add-hook 'erc-mode-hook 'my-buffer-face-mode-variable)
 (add-hook 'Info-mode-hook 'my-buffer-face-mode-variable)
 
-;; Control-c + Control-c + f/v to change font type
+;; Control-c + Control-f/v to change font type
 (global-set-key (kbd "C-c C-f") 'my-buffer-face-mode-fixed)
 (global-set-key (kbd "C-c C-v") 'my-buffer-face-mode-variable)
 
-;; Control-c + Control-c + Arrows to change font size
+;; Control-c + Control+Arrows to change font size
 (global-set-key (kbd "C-c C-<up>") 'text-scale-increase)
 (global-set-key (kbd "C-c C-<down>") 'text-scale-decrease)
 
