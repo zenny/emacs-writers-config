@@ -1,14 +1,19 @@
-;;; ====== Org-mode configuration ======
+;;; ====== Org-lmode configuration ======
 
 (require 'org)
 (require 'ox-latex)
 (require 'org-inlinetask)
 (require 'org-mouse)
-;(require 'org-ref)
+;;(require 'org-ref)
 (require 'org-agenda)
-;(require 'dash)
+(require 'orca)
+;;(require 'dash)
+(require 'ox-tufte)
 
 ;; ===== Configuration of org-mode =====
+
+;; Set default org directory
+(setq org-directory "~/org")
 
 ;; Open organizer with global command
 (global-set-key (kbd "C-c C-o")
@@ -84,6 +89,39 @@
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 
 (require 'org-habit)
+
+;; ===== Capture =====
+
+(require 'org-protocol)
+
+(setq org-default-notes-file (concat org-directory "/organizer.org"))
+(define-key global-map "\C-cc" 'org-capture)
+
+(setq org-capture-templates `(
+			      ("p" "Protocol" entry
+			       (file+headline ,org-default-notes-file "Captures")
+			       "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+			      ("L" "Protocol Link" entry
+			       (file+headline ,org-default-notes-file "Captures")
+			       "* %? [[%:link][%:description]] \nCaptured On: %U")
+			      ))
+
+;; ====== Orca ======
+
+(setq orca-handler-list
+      '((orca-handler-match-url
+         "https://www.reddit.com/emacs/"
+         "~/Dropbox/org/wiki/emacs.org"
+         "Reddit")
+        (orca-handler-match-url
+         "https://emacs.stackexchange.com/"
+         "~/Dropbox/org/wiki/emacs.org"
+         "\\* Questions")
+        (orca-handler-current-buffer
+         "\\* Tasks")
+        (orca-handler-file
+         "~/Dropbox/org/ent.org"
+         "\\* Articles")))
 
 ;; ====== Org babel ======
 
