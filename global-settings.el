@@ -1,9 +1,10 @@
-fv;;; ====== Global settings =====
+;;; ====== Global settings =====
 
 ;; ===== Theme and font ======
 
 ;;(load-theme 'leuven t)
-(load-theme 'eziam-dark t)
+;;(load-theme 'eziam-dark t)
+(load-theme 'eziam-light t)
 
 (add-to-list 'default-frame-alist '(font . "Input Mono 10" ))
 (set-face-attribute 'default t :font "Input Mono 10" )
