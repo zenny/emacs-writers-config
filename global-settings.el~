@@ -1,7 +1,0 @@
-;;; ====== Global settings =====
-
-;; ===== Theme and Font ======
-
-(load-theme 'eziam-dark-theme)
-(load-theme 'eziam-light-theme)
-(load-theme 'leuven)
