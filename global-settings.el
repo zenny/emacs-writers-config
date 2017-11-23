@@ -1,10 +1,26 @@
 ;;; ====== Global settings =====
 
+;; ===== Personal information ======
+
+(setq user-full-name "Matthew E. Adams"
+      user-mail-address "m2eadams@gmail.com")
+
+;; ===== Unicode ======
+
+(set-charset-priority 'unicode)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+
 ;; ===== Theme and font ======
 
 ;;(load-theme 'leuven t)
 ;;(load-theme 'eziam-dark t)
-(load-theme 'eziam-light t)
+;;(load-theme 'eziam-light t)
+(load-theme 'doom-peacock t)
 
 (add-to-list 'default-frame-alist '(font . "Input Mono 10" ))
 (set-face-attribute 'default t :font "Input Mono 10" )
