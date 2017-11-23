@@ -65,6 +65,16 @@
 
 (setq auto-save-list-file-prefix (expand-file-name "auto-save-list/saves-" emacs-main-dir))
 
+(require 'savehist)
+(setq savehist-file (concat user-emacs-directory "savehist"))
+(savehist-mode 1)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+        search-ring
+        regexp-search-ring))
+(setq-default save-place t)
+
 ;; ====== Visual appearance and behaviors ======
 
 ;; Answer with y/n instead of yes/no

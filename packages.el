@@ -47,6 +47,15 @@
   :init
   (require 'org-settings))
 
+;; ===== Web browsers, EWW, and Firefox =====
+
+(use-package web-settings
+  :ensure nil
+  :load-path emacs-main-dir
+  :init
+  (require 'web-settings)
+  )
+
 ;; ===== Easy Hugo ======
 
 (use-package easy-hugo
@@ -198,9 +207,19 @@
   (define-key elfeed-show-mode-map (kbd "j") 'next-line)
   (define-key elfeed-show-mode-map (kbd "k") 'previous-line))
 
+;; ==== Visual undo =====
+
+(use-package undo-tree
+  :ensure t
+  :init (global-undo-tree-mode t)
+  :defer t
+  :diminish ""
+  :config
+  (progn
+    (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
+    (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo)))
 
 ;; ===== The weather =====
-
 (use-package wttrin
   :ensure t
   :init
