@@ -55,7 +55,7 @@
 
 (setq inhibit-startup-screen t) ;; stop showing startup screen
 (tool-bar-mode 0)               ;; remove the icons
-(menu-bar-mode 1)               ;; toggle the menu bar
+(menu-bar-mode 0)               ;; toggle the menu bar
 
 (setq custom-file (expand-file-name "user/custom.el" emacs-main-dir))
       
@@ -82,6 +82,10 @@
 
 ;; Change cursor shape
 (setq-default cursor-type 'box)
+
+;; Show lines and column numbers
+(line-number-mode 1)
+(column-number-mode 1)
 
 (provide 'global-settings)
 
