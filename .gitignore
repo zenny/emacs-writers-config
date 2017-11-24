@@ -1,6 +1,4 @@
 usersavehist
-user/.sx
-user/ac-comphist.dat
-user/bookmarks
-user/url/*
-auto-save-list/*
+user/
+auto-save-list/
+elpa
