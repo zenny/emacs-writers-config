@@ -1,6 +1,6 @@
 usersavehist
 user/.sx
+user/ac-comphist.dat
 user/bookmarks
-user/url/cache/
-user/url/cookies
+user/url/*
 auto-save-list/*
