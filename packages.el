@@ -30,6 +30,13 @@
    ("s-<SPC>" . org-mark-ring-goto)
    ("H-." . org-time-stamp-inactive)))
 
+(use-package org-protocol
+  :ensure t)
+
+;; (use-package org-protocol-capture-html
+;;   :ensure nil
+;;   :load-path )
+
 (use-package org-settings
   :ensure nil
   :load-path emacs-main-dir
@@ -141,6 +148,10 @@
 
 (use-package magit
   :ensure t)
+
+(use-package magithub
+  :after magit
+  :config (magithub-feature-autoinject t))
 
 ;; ===== Visual undo ======
 
