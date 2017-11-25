@@ -17,11 +17,31 @@
 
 ;; ===== Theme and font ======
 
-;;(load-theme 'leuven t)
-;;(load-theme 'eziam-dark t)
-;;(load-theme 'eziam-light t)
+;; Startup theme
 (load-theme 'doom-peacock t)
 
+;; Set themes index
+(setq owl/themes '(doom-peacock doom-nova doom-one-light doom-molokai doom-vibrant doom-one doom-tomorrow-night leuven))
+(setq owl/themes-index 0)
+
+;; Function to cycle through themes
+(defun owl/cycle-theme ()
+  (interactive)
+  (setq owl/themes-index (% (1+ owl/themes-index) (length owl/themes)))
+  (owl/load-indexed-theme))
+
+(global-set-key (kbd "C-c C-t") 'owl/cycle-theme)
+
+;; Load indexed theme and disable previous theme to prevent overlay
+(defun owl/load-indexed-theme ()
+  (owl/try-load-theme (nth owl/themes-index owl/themes)))
+
+(defun owl/try-load-theme (theme)
+  (if (ignore-errors (load-theme theme :no-confirm))
+      (mapcar #'disable-theme (remove theme custom-enabled-themes))
+    (message "Unable to find theme file for ‘%s’" theme)))
+
+;; Default fonts
 (add-to-list 'default-frame-alist '(font . "Input Mono 10" ))
 (set-face-attribute 'default t :font "Input Mono 10" )
 
@@ -89,6 +109,9 @@
 (auto-fill-mode -1)             ;; Disprefer auto-fill-mode
 (show-paren-mode 1)             ;; Highlight parentheses
 (setq show-paren-style 'mixed)  ;; Alternatives: 'expression, 'parenthesis
+
+;; Cursor color
+(set-cursor-color "#ffffff")
 
 ;; Change cursor shape
 (setq-default cursor-type 'box)
