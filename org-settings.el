@@ -50,6 +50,12 @@
 						   (region-beginning)
 						   (region-end)))))
 
+;; Use UTF-8 characters for org bullets
+(use-package org-bullets
+  :ensure t
+  :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  )
+
 ;; ===== Agenda setup =====
 
 ;; Org files targeted for agenda
