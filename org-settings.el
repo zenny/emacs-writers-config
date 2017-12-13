@@ -4,7 +4,6 @@
 (require 'ox-latex)
 (require 'org-inlinetask)
 (require 'org-mouse)
-;;(require 'org-ref)
 (require 'org-agenda)
 (require 'orca)
 ;;(require 'dash)
@@ -16,7 +15,7 @@
 (setq org-directory "~/org")
 
 ;; Open organizer with global command
-(global-set-key (kbd "C-c C-o")
+(global-set-key (kbd "C-c C-c o")
 		(lambda () (interactive) (find-file "~/org/organizer.org")))
 
 ;; Make editing invisible regions smart
@@ -55,6 +54,19 @@
   :ensure t
   :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   )
+
+;; ====== Refiling setup =====
+
+;; Refiling targets
+
+(setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 3)
+			   ("~/org/food.org" :maxlevel . 3)
+			   ("~/org/organizer.org" :maxlevel . 3)
+			   ("~/org/music.org" :maxlevel . 3)
+			   ("~/org/writing.org" :maxlevel . 3)))
+
+;; Allow parent node creation
+(setq org-refile-allow-creating-parent-nodes 'confirm)
 
 ;; ===== Agenda setup =====
 
@@ -112,6 +124,13 @@
 			       "* %? [[%:link][%:description]] \nCaptured On: %U")
 			      ))
 
+;; ===== Org ref ======
+
+(use-package org-ref
+  :ensure t
+  :init
+  :config)
+
 ;; ====== Orca ======
 
 (setq orca-handler-list
@@ -146,6 +165,42 @@
          (org . t)
          (plantuml . t)
          (latex . t))))
+
+;; ===== Org-board =====
+
+;; org-board is a bookmarking and web archival system for Emacs Org
+;; mode, building on ideas from Pinboard <https://pinboard.in>.  It
+;; archives your bookmarks so that you can access them even when
+;; you're not online, or when the site hosting them goes down.
+;; `wget' is used as a backend for archival, so any of its options
+;; can be used directly from org-board.  This means you can download
+;; whole sites for archival with a couple of keystrokes, while
+;; keeping track of your archives from a simple Org file.
+
+(use-package org-board
+  :ensure t
+  :init
+  (global-set-key (kbd "C-c b") org-board-keymap)
+  )
+
+
+;; ===== Org-brain =====
+
+(use-package org-brain
+  :ensure t
+  :init
+  (setq org-brain-path "brain/")
+  :config
+  (setq org-id-track-globally t)
+  (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
+  (push '("b" "Brain" plain (function org-brain-goto-end)
+          "* %i%?" :empty-lines 1)
+        org-capture-templates)
+  (setq org-brain-visualize-default-choices 'all)
+  (setq org-brain-title-max-length 12)
+  )
+
+;; Make org-settings visible for init and packages.el
 
 (provide 'org-settings)
 
