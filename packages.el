@@ -30,13 +30,6 @@
    ("s-<SPC>" . org-mark-ring-goto)
    ("H-." . org-time-stamp-inactive)))
 
-(use-package org-protocol
-  :ensure t)
-
-;; (use-package org-protocol-capture-html
-;;   :ensure nil
-;;   :load-path )
-
 (use-package org-settings
   :ensure nil
   :load-path emacs-main-dir
@@ -74,7 +67,7 @@
   (setq easy-hugo-root "~/linguistgate.github.io/")
   (setq easy-hugo-previewtime "300")
   (setq easy-hugo-default-ext ".org")
-  :bind ( "C-c C-w" . easy-hugo) 
+  :bind ( "C-c C-w" . easy-hugo)
   )
 
 ;; ===== Elfeed for RSS feeds =====
@@ -83,60 +76,12 @@
   :ensure t
   :bind ("C-x w" . elfeed)
   :init
-  ;; URLs in no particular order
   (setq elfeed-use-curl t)
-  (setq elfeed-feeds
-        '(;; Blogs
-          ("http://blag.xkcd.com/feed/" blog)
-          ("http://newartisans.com/rss.xml" blog emacs)
-          ("http://blog.nullspace.io/feed.xml" blog)
-          ("https://codewords.recurse.com/feed.xml" blog)
-          ("http://neverworkintheory.org/feed.xml" blog)
-          ("http://maryrosecook.com/blog/feed" blog)
-
-	  ;; Digital humanities
-	  ("https://ericweiskott.com/category/blog/feed/" humanities)
-	  
-	  ;; German language
-	  ("http://rss.dw.com/atom/rss-de-news" german news)
-	  ("http://rss.dw.com/xml/rss-de-cul-musik" german music)
-	  ("http://rss.dw.com/xml/rss-de-cul-film" german film)
-	  ("http://www.spiegel.de/schlagzeilen/tops/index.rss" german news politics spiegel)
-	  
-	  ;; Theology
-
-	  ;; Github feeds
-
-	  ;; Linux
-	  ("http://www.phoronix.com/rss.php" linux news)
-	  ("http://fedoramagazine.org/feed/" linux)
-	  ;;("http://feeds.feedburner.com/mylinuxrig" linux)
-
-	  ;; Emacs
-	  ("http://oremacs.com/atom.xml" emacs)
-	  ;;("http://www.lunaryorn.com/feed.atom" emacs)
-	  ("http://emacsnyc.org/atom.xml" emacs)
-	  ;;("http://emacsredux.com/atom.xml" emacs)
-	  ("http://www.masteringemacs.org/feed/" emacs)
-	  ("http://planet.emacsen.org/atom.xml" emacs)
-	  ("http://endlessparentheses.com/atom.xml" emacs)
-
-	  ;; News
-	  ;;("http://feeds.arstechnica.com/arstechnica/index/" news)
-	  ("http://www.osnews.com/files/recent.xml" news)
-	  ("https://opensource.com/feed" news)
-	  ;;("http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news)
-
-	  ;; Flickr
-
-	  ;; Reddit
-	  ("https://www.reddit.com/r/emacs/.rss" emacs reddit)
-	  ;;("https://www.reddit.com/r/orgmode/.rss" emacs reddit)
-
-	  ;; Other
-
-	  
-	  ))
+  (use-package elfeed-org
+    :ensure t
+    :init 
+    (setq rmh-elfeed-org-files (list "~/org/elfeed.org"))
+    )
   :config
   (define-key elfeed-show-mode-map (kbd "j") 'next-line)
   (define-key elfeed-show-mode-map (kbd "k") 'previous-line)
