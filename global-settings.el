@@ -30,7 +30,7 @@
   (setq owl/themes-index (% (1+ owl/themes-index) (length owl/themes)))
   (owl/load-indexed-theme))
 
-(global-set-key (kbd "C-c C-t") 'owl/cycle-theme)
+(global-set-key (kbd "<f12>") 'owl/cycle-theme)
 
 ;; Load indexed theme and disable previous theme to prevent overlay
 (defun owl/load-indexed-theme ()
@@ -111,7 +111,7 @@
 (setq show-paren-style 'mixed)  ;; Alternatives: 'expression, 'parenthesis
 
 ;; Cursor color
-(set-cursor-color "#ffffff")
+;;(set-cursor-color "#ffffff")
 
 ;; Change cursor shape
 (setq-default cursor-type 'box)
