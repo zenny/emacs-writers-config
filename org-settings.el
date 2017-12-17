@@ -15,10 +15,10 @@
 (setq org-directory "~/org")
 
 ;; Open organizer with global command
-(global-set-key (kbd "C-c C-c o")
+(global-set-key (kbd "C-x C-o")
 		(lambda () (interactive) (find-file "~/org/organizer.org")))
 
-;; Make editing invisible regions smart
+;; Make editing invisible regions" smart
 (setq org-catch-invisible-edits 'smart)
 
 ;; Allow lists with letters in them
@@ -29,7 +29,7 @@
 
 ;; ===== Speed commands ======
 
-(setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "IN-PROGRESS(p)" "NEXT(n)" "|" "DONE(d)" "CANCELED(c)")))
 
 (setq org-use-speed-commands t)
 
