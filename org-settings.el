@@ -14,8 +14,17 @@
 ;; Set default org directory
 (setq org-directory "~/org")
 
+;; Default org file aps
+
+(setq org-file-apps
+      '(("\\.docx\\'" . default)
+	("\\.mm\\'" . default)
+	("\\.x?html?\\'" . default)
+	("\\.pdf\\'" . default)
+	(auto-mode . emacs)))
+
 ;; Open organizer with global command
-(global-set-key (kbd "C-x C-o")
+(global-set-key (kbd "<f5>")
 		(lambda () (interactive) (find-file "~/org/organizer.org")))
 
 ;; Make editing invisible regions" smart
