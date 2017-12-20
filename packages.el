@@ -61,10 +61,10 @@
 (use-package easy-hugo
   :ensure t
   :init
-  (setq easy-hugo-basedir "~/workspace/")
+  (setq easy-hugo-basedir "~/public_workspace/")
   (setq easy-hugo-url "http://www.matthew-edward-adams.org")
   (setq easy-hugo-sshdomain "~/.ssh/config")
-  (setq easy-hugo-root "~/linguistgate.github.io/")
+  (setq easy-hugo-root "~/public_workspace")
   (setq easy-hugo-previewtime "300")
   (setq easy-hugo-default-ext ".org")
   :bind ( "C-c C-w" . easy-hugo)
@@ -94,21 +94,10 @@
 (use-package magit
   :ensure t)
 
-(use-package magithub
-  :after magit
-  :config (magithub-feature-autoinject t))
+;; (use-package magithub
+;;   :after magit
+;;   :config (magithub-feature-autoinject t))
 
-;; ===== Visual undo ======
-
-(use-package undo-tree
-  :ensure t
-  :init (global-undo-tree-mode t)
-  :defer t
-  :diminish ""
-  :config
-  (progn
-    (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
-    (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo)))
 
 ;; ===== The weather =====
 (use-package wttrin

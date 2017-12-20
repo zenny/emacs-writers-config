@@ -18,7 +18,7 @@
 ;; ===== Theme and font ======
 
 ;; Startup theme
-(load-theme 'doom-peacock t)
+;;(load-theme 'doom-peacock t)
 
 ;; Set themes index
 (setq owl/themes '(doom-peacock doom-nova doom-one-light doom-molokai doom-vibrant doom-one doom-tomorrow-night leuven))
@@ -119,6 +119,17 @@
 ;; Show lines and column numbers
 (line-number-mode 1)
 (column-number-mode 1)
+
+;; ===== Directory navigation /// Ivy =====
+
+(use-package direx
+  :ensure t
+  :config
+  (require 'direx)
+  (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory))
+
+
+
 
 (provide 'global-settings)
 
