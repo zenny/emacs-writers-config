@@ -1,6 +1,8 @@
 usersavehist
 user
+user/
 user/*
 auto-save-list/
+elpa/
 elpa
 elpa/*
