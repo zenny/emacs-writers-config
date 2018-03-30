@@ -108,16 +108,6 @@
     :ensure t
     ))
 
-;; ===== Magit ======
-
-(use-package magit
-  :ensure t)
-
-;; (use-package magithub
-;;   :after magit
-;;   :config (magithub-feature-autoinject t))
-
-
 ;; ===== The weather =====
 (use-package wttrin
   :ensure t
