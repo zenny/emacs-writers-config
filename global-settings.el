@@ -20,8 +20,13 @@
 (use-package general
   :ensure t)
 
+
 (use-package hydra
-  :ensure t)
+  :init
+  (setq hydra-is-helpful t)
+  
+  :config
+  (require 'hydra-ox))
 
 ;;* ===== Unicode ======
 
