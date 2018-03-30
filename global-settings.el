@@ -284,6 +284,29 @@
 	;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
 
+(use-package ivy-hydra)
+
+;;** Eyebrowse
+;; Easy workspaces creation and switching
+(use-package eyebrowse                  
+  :ensure t
+  :config
+  (setq eyebrowse-mode-line-separator " "
+	eyebrowse-new-workspace t)
+
+  (eyebrowse-mode t))
+
+;;* ===== Magit =====
+
+(use-package magit
+  :init (setq magit-completing-read-function 'ivy-completing-read)
+  :bind
+  ("<f5>" . magit-status)
+  ("C-c v t" . magit-status))
+
+;; (use-package magithub
+;;   :after magit)
+
 ;;* ===== End matter
 (provide 'global-settings)
 
