@@ -181,6 +181,47 @@
     (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
     (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo)))
 
+;;** Spell checking
+
+(use-package flyspell-correct-ivy
+  :ensure t
+  :init
+  (setq ispell-program-name (executable-find "hunspell")   ; Use hunspell
+	ispell-dictionary "en_US"
+	flyspell-correct-interface 'flyspell-correct-ivy
+	ispell-local-dictionary-alist '("deutsch-hunspell"
+					"[[:alpha:]]"
+					"[^[:alpha:]]"
+					"[']"
+					t
+					("-d" "de_DE")   ; Dictionary file name
+					nil
+					utf-8)
+	ispell-local-dictionary-alist '("english-hunspell"
+					"[[:alpha:]]"
+					"[^[:alpha:]]"
+					"[']"
+					t
+					("-d" "en_US")
+					nil
+					utf-8)))
+
+(bind-key "C-c G"
+	  (lambda ()
+	    (interactive)
+	    (ispell-change-dictionary "de_DE")
+	    (flyspell-buffer)))
+
+(bind-key "C-c E"
+	  (lambda ()
+	    (interactive)
+	    (ispell-change-dictionary "en_US")
+	    (flyspell-buffer))) 
+
+
+
+(use-package flx)
+
 ;;* ===== Literate programming ======
 
 ;;** Outline-minor-mode key map
