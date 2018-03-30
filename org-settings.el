@@ -212,7 +212,7 @@
          "~/Dropbox/org/ent.org"
          "\\* Articles")))
 
-;; ====== Org babel ======
+;;* ====== Org babel ======
 
 (org-babel-do-load-languages
  (quote org-babel-load-languages)
