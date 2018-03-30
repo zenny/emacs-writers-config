@@ -185,10 +185,10 @@
 ;; Refiling targets
 
 (setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 3)
-			   ("~/org/workflow.org" :maxlevel .3)
 			   ("~/org/food.org" :maxlevel . 3)
 			   ("~/org/organizer.org" :maxlevel . 3)
 			   ("~/org/music.org" :maxlevel . 3)
+			   ("~/org/library.org" :maxlevel . 3)
 			   ("~/org/writing.org" :maxlevel . 3)))
 
 ;; Allow parent node creation
