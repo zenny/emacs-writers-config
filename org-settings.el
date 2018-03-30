@@ -142,15 +142,24 @@
 
 (require 'org-habit)
 
-;; ===== Capture =====
+;;* ===== Capture =====
 
 (require 'org-protocol)
 
 (setq org-default-notes-file (concat org-directory "/organizer.org"))
 (define-key global-map "\C-cc" 'org-capture)
 
-(setq org-capture-templates `(
-			      ("p" "Protocol" entry
+(setq org-capture-templates `(("t" "Todo" entry
+			       (file+headline ,org-default-notes-file "Refile")
+			       "* TODO %?\n%U" :clock-in t :clock-resume t)
+			      ("n" "Note" entry
+			       (file+headline ,org-default-notes-file "Refile")
+			       "* %? :NOTE:\n%U" :clock-in t :clock-resume t)
+			      ("j" "Notebook Entry" entry
+			       (file+datetree "~/org/notebook/notebook.org")
+			       "* %?"
+			       :empty-lines 1)
+			      ("p" "protocol" entry
 			       (file+headline ,org-default-notes-file "Captures")
 			       "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
 			      ("L" "Protocol Link" entry
