@@ -230,7 +230,7 @@
          (plantuml . t)
          (latex . t))))
 
-;; ===== Org-board =====
+;;* ===== Org-board =====
 
 ;; org-board is a bookmarking and web archival system for Emacs Org
 ;; mode, building on ideas from Pinboard <https://pinboard.in>.  It
