@@ -42,9 +42,19 @@
 ;; Setup archive location in archive directory in current folder
 (setq org-archive-lcoation "archive/%s_archive::")
 
-;; ===== Speed commands ======
+;;* ===== Custom IDs behavior =====
 
-(setq org-todo-keywords '((sequence "TODO(t)" "IN-PROGRESS(p)" "NEXT(n)" "|" "DONE(d)" "CANCELED(c)")))
+(require 'org-id)
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+
+;; Update ID file on startup
+(org-id-update-id-locations)
+
+;;* ===== Speed commands ======
+
+(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELED(c)")))
+
+(setq org-enforce-todo-dependencies t)
 
 (setq org-use-speed-commands t)
 
