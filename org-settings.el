@@ -1,21 +1,16 @@
-;;; ====== Org-lmode configuration ======
+;;; ====== Org-mode configuration ======
 
 (require 'org)
-(require 'ox-latex)
 (require 'org-inlinetask)
 (require 'org-mouse)
 (require 'org-agenda)
-(require 'orca)
-;;(require 'dash)
-(require 'ox-tufte)
 
-;; ===== Configuration of org-mode =====
+;;* ===== Configuration of org-mode =====
 
 ;; Set default org directory
 (setq org-directory "~/org")
 
 ;; Default org file aps
-
 (setq org-file-apps
       '(("\\.docx\\'" . default)
 	("\\.mm\\'" . default)
