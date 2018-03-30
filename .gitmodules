@@ -1,0 +1,6 @@
+[submodule "org-books"]
+	path = org-books
+	url = https://github.com/lepisma/org-books.git
+[submodule "tufte-org-mode"]
+	path = tufte-org-mode
+	url = https://github.com/tsdye/tufte-org-mode.git
