@@ -113,6 +113,12 @@
 
 (setq org-upcoming-deadline '(:foreground "blue" :weight bold))
 
+;; Provides unscheduled tasks
+(defun owl/org-agenda-skip-scheduled ()
+  (org-agenda-skip-entry-if 'scheduled 'deadline 'regexp "\n]+>"))
+
+;; Agenda views
+
 (add-to-list
  'org-agenda-custom-commands
  '("w" "Weekly Review"
