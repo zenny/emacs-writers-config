@@ -167,14 +167,35 @@
 			       "* %? [[%:link][%:description]] \nCaptured On: %U")
 			      ))
 
-;; ===== Org ref ======
+;;* ====== Refiling setup =====
 
-(use-package org-ref
-  :ensure t
-  :init
-  :config)
+;; Refiling targets
 
-;; ====== Orca ======
+(setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 3)
+			   ("~/org/workflow.org" :maxlevel .3)
+			   ("~/org/food.org" :maxlevel . 3)
+			   ("~/org/organizer.org" :maxlevel . 3)
+			   ("~/org/music.org" :maxlevel . 3)
+			   ("~/org/writing.org" :maxlevel . 3)))
+
+;; Allow parent node creation
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+
+;;* ===== Reading list managmeent ======
+
+;; Uses code from https://github.com/lepisma/org-books to create reading tracking.
+
+(use-package enlive
+  :ensure t)
+
+(add-to-list 'load-path (expand-file-name "org-books" emacs-main-dir))
+(require 'org-books)
+
+(setq org-books-file "~/org/library.org")
+
+;;* ====== Orca ======
+
+(require 'orca)
 
 (setq orca-handler-list
       '((orca-handler-match-url
