@@ -247,8 +247,7 @@
   (global-set-key (kbd "C-c b") org-board-keymap)
   )
 
-
-;; ===== Org-brain =====
+;;* ===== Org-brain =====
 
 (use-package org-brain
   :ensure t
