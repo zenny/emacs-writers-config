@@ -18,11 +18,22 @@
 	("\\.pdf\\'" . default)
 	(auto-mode . emacs)))
 
-;; Open organizer with global command
-(global-set-key (kbd "<f5>")
-		(lambda () (interactive) (find-file "~/org/organizer.org")))
+;; Make org-mode aware of pdf-tools
+(use-package org-pdfview
+  :ensure t)
 
-;; Make editing invisible regions" smart
+(eval-after-load 'org '(require 'org-pdfview))
+
+(add-to-list 'org-file-apps 
+             '("\\.pdf\\'" . (lambda (file link)
+			       (org-pdfview-open link))))
+;; Custom key bindings
+(global-set-key (kbd "<f9> o")
+		(lambda () (interactive) (find-file "~/org/organizer.org")))
+(global-set-key (kbd "<f9> c") 'calendar)
+(global-set-key (kbd "<f9> m") 'gnus)
+
+;; Make editing invisible regions smart
 (setq org-catch-invisible-edits 'smart)
 
 ;; Allow lists with letters in them
