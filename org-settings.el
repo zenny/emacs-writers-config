@@ -140,10 +140,16 @@
     ;; and last a global todo list
     (todo "TODO"))))
 
+(add-to-list 'org-agenda-custom-commands
+	     '("u" "Unscheduled tasks" alltodo ""
+	       ((org-agenda-skip-function 'sacha/org-agenda-skip-scheduled)
+		(org-agenda-overriding-header "Unscheduled TODO entries: "))))
+
+
 ;; ====== Org habit ======
 
 ;;  Position the habit graph on the agenda to the right of the default
-;(setq org-habit-graph-column 50)
+					;(setq org-habit-graph-column 50)
 
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 
