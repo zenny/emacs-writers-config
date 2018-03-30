@@ -11,6 +11,25 @@
   :bind
   ("C-x C-b" . ibuffer))
 
+;; ===== Pdf-tools =====
+
+;; Thing is a toad to install
+;; https://github.com/politza/pdf-tools
+;; ~/builds/pdf-tools contains some necessary files
+
+(use-package let-alist
+  :ensure t)
+
+(use-package tablist
+  :ensure t)
+
+;; Comment out this line if Emacs daemon won't start
+(pdf-tools-install)
+
+;; Interleave
+(use-package interleave
+  :ensure t)
+
 ;; ===== Org mode =====
 
 (use-package org-plus-contrib
