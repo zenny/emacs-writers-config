@@ -80,23 +80,32 @@
   :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   )
 
-;; ====== Refiling setup =====
+;;* ===== Org-download =====
 
-;; Refiling targets
+;; For picture management, drag-and-drop ability
+;; https://github.com/abo-abo/org-download/blob/master/org-download.el
 
-(setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 3)
-			   ("~/org/food.org" :maxlevel . 3)
-			   ("~/org/organizer.org" :maxlevel . 3)
-			   ("~/org/music.org" :maxlevel . 3)
-			   ("~/org/writing.org" :maxlevel . 3)))
+(use-package org-download
+  :ensure t
+  :config
+  (setq-default org-download-image-dir "~/org/img")
+  )
 
-;; Allow parent node creation
-(setq org-refile-allow-creating-parent-nodes 'confirm)
+;;* ===== Contact management =====
 
-;; ===== Agenda setup =====
+;; BBDB
+(use-package bbdb
+  :ensure t
+  )
+
+;;* ===== Agenda setup =====
 
 ;; Org files targeted for agenda
-(setq org-agenda-files (quote ("~/org/organizer.org")))
+(setq org-agenda-files (quote ("~/org/bugout.org"
+			       "~/org/organizer.org"
+			       "~/org/food.org"
+			       "~/org/library.org"
+			       "~/org/notebook/notebook.org"))) 
 
 ;; Record time task is finished when set to DONE
 (setq org-log-done 'time)
