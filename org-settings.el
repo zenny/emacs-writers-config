@@ -1,9 +1,9 @@
 ;;; ====== Org-mode configuration ======
 
-(require 'org)
-(require 'org-inlinetask)
-(require 'org-mouse)
-(require 'org-agenda)
+(use-package org)
+(use-package org-inlinetask)
+(use-package org-mouse)
+(use-package org-agenda)
 
 ;;* ===== Configuration of org-mode =====
 
