@@ -161,20 +161,23 @@
 (setq org-default-notes-file (concat org-directory "/organizer.org"))
 (define-key global-map "\C-cc" 'org-capture)
 
-(setq org-capture-templates `(("t" "Todo" entry
+(setq org-capture-templates `(("t" "todo" entry
 			       (file+headline ,org-default-notes-file "Refile")
 			       "* TODO %?\n%U" :clock-in t :clock-resume t)
-			      ("n" "Note" entry
+			      ("n" "note" entry
 			       (file+headline ,org-default-notes-file "Refile")
 			       "* %? :NOTE:\n%U" :clock-in t :clock-resume t)
-			      ("j" "Notebook Entry" entry
+			      ("j" "notebook entry" entry
 			       (file+datetree "~/org/notebook/notebook.org")
 			       "* %?"
 			       :empty-lines 1)
+			      ("r" "recipe" entry
+			       (file+headline "~/org/notebook/notebook.org" "Recipes")
+			       "* TOCOOK %?\n:PROPERTIES:\n:SOURCE: \n:SERVES: \n:END:\n** Ingredients\n** Preperation")
 			      ("p" "protocol" entry
 			       (file+headline ,org-default-notes-file "Refile")
 			       "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-			      ("L" "Protocol Link" entry
+			      ("L" "protocol link" entry
 			       (file+headline ,org-default-notes-file "Refile")
 			       "* %? [[%:link][%:description]] \nCaptured On: %U")
 			      ))
