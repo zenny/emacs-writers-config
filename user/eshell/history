@@ -1,7 +1,0 @@
-cd
-ls
-tmux
-exit
-(+ 2 2)
-info
-exit
