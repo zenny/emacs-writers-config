@@ -172,7 +172,7 @@
 			       "* %?"
 			       :empty-lines 1)
 			      ("r" "recipe" entry
-			       (file+headline "~/org/notebook/notebook.org" "Recipes")
+			       (file+headline "~/org/food.org" "Recipes")
 			       "* TOCOOK %?\n:PROPERTIES:\n:SOURCE: \n:SERVES: \n:END:\n** Ingredients\n** Preperation")
 			      ("p" "protocol" entry
 			       (file+headline ,org-default-notes-file "Refile")
