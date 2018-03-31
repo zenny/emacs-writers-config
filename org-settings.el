@@ -44,11 +44,11 @@
 
 ;;* ===== Custom IDs behavior =====
 
-(require 'org-id)
-(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
-
-;; Update ID file on startup
-(org-id-update-id-locations)
+(use-package org-id
+  :ensure t
+  :config (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+  ;; Update ID file on startup
+  (org-id-update-id-locations))
 
 ;;* ===== Speed commands ======
 
