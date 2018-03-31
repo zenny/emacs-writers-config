@@ -186,6 +186,13 @@
 
 ;; Refiling targets
 
+;; Allow top-level refiling
+;; See https://blog.aaronbieber.com/2017/03/19/organizing-notes-with-refile.html
+(setq org-outline-path-complete-in-steps nil)
+
+;; Allow on-the-fly creation of parent headings
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+
 (setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 3)
 			   ("~/org/food.org" :maxlevel . 3)
 			   ("~/org/organizer.org" :maxlevel . 3)
