@@ -288,13 +288,13 @@
 
 ;;** Eyebrowse
 ;; Easy workspaces creation and switching
-(use-package eyebrowse                  
-  :ensure t
-  :config
-  (setq eyebrowse-mode-line-separator " "
-	eyebrowse-new-workspace t)
+;; (use-package eyebrowse                  
+;;   :ensure t
+;;   :config
+;;   (setq eyebrowse-mode-line-separator " "
+;; 	eyebrowse-new-workspace t)
 
-  (eyebrowse-mode t))
+;;   (eyebrowse-mode t))
 
 ;;* ===== Magit =====
 
