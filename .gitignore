@@ -1,10 +1,6 @@
 usersavehist
-user
-user/
-user/*
 auto-save-list/
-elpa/
-elpa
-elpa/*
 .org-id-locations
-webpage-bookmarklet
+webpage-bookmarklets
+user
+user/*
