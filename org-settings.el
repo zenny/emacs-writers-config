@@ -145,7 +145,6 @@
 	       ((org-agenda-skip-function 'sacha/org-agenda-skip-scheduled)
 		(org-agenda-overriding-header "Unscheduled TODO entries: "))))
 
-
 ;; ====== Org habit ======
 
 ;;  Position the habit graph on the agenda to the right of the default
@@ -173,10 +172,10 @@
 			       "* %?"
 			       :empty-lines 1)
 			      ("p" "protocol" entry
-			       (file+headline ,org-default-notes-file "Captures")
+			       (file+headline ,org-default-notes-file "Refile")
 			       "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
 			      ("L" "Protocol Link" entry
-			       (file+headline ,org-default-notes-file "Captures")
+			       (file+headline ,org-default-notes-file "Refile")
 			       "* %? [[%:link][%:description]] \nCaptured On: %U")
 			      ))
 
