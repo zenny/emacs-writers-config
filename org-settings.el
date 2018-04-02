@@ -40,7 +40,7 @@
 (setq org-list-allow-alphabetical t)
 
 ;; Setup archive location in archive directory in current folder
-(setq org-archive-lcoation "archive/%s_archive::")
+(setq org-archive-lcoation "/archive/%s_archive::")
 
 ;;* ===== Custom IDs behavior =====
 
