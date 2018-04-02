@@ -52,7 +52,7 @@
 
 ;;* ===== Speed commands ======
 
-(setq org-todo-keywords '((sequence "IDEA(i)" "|" "TODO(t)")
+(setq org-todo-keywords '((sequence "IDEA(i)")
 			  (sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)")
 			  (sequence "|" "CANCELED(c)" "DELEGATED(l)" "SOMEDAY(f)")))
 
