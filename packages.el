@@ -80,7 +80,8 @@
 (use-package easy-hugo
   :ensure t
   :init
-  (setq easy-hugo-basedir "~/public_workspace/")
+  (setq easy-hugo-basedir "~/public_workspace")
+  (setq easy-hugo-postdir "content/posts")
   (setq easy-hugo-url "http://www.matthew-edward-adams.org")
   (setq easy-hugo-sshdomain "~/.ssh/config")
   (setq easy-hugo-root "~/public_workspace")
