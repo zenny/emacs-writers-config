@@ -1,9 +1,9 @@
 ;;; ====== Org-mode configuration ======
 
 (require 'org)
-(use-package org-inlinetask)
-(use-package org-mouse)
-(use-package org-agenda)
+(require 'org-inlinetask)
+(require 'org-mouse)
+(require 'org-agenda)
 
 ;;* ===== Configuration of org-mode =====
 
@@ -44,11 +44,11 @@
 
 ;;* ===== Custom IDs behavior =====
 
-(use-package org-id
-  :ensure t
-  :config (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
-  ;; Update ID file on startup
-  (org-id-update-id-locations))
+(require 'org-id)
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+
+;; Update ID file on startup
+(org-id-update-id-locations)
 
 ;;* ===== Speed commands ======
 
@@ -298,21 +298,21 @@
 	"~/projects/ettelon/wiki)"
 	))
 
-(setq org-wiki-template
-      (string-trim
-       "
-#+TITLE: %n
-#+DESCRIPTION:
-#+KEYWORDS:
-#+STARTUP:  content
-#+DATE: %d
+;; (setq org-wiki-template
+;;       (string-trim
+;;        "
+;; #+TITLE: %n
+;; #+DESCRIPTION:
+;; #+KEYWORDS:
+;; #+STARTUP:  content
+;; #+DATE: %d
 
-- [[wiki:index][Index]]
+;; - [[wiki:index][Index]]
 
-- Related: 
+;; - Related: 
 
-* %n
-"))
+;; * %n
+;; "))
 
 ;;* ===== Org ref ======
 
