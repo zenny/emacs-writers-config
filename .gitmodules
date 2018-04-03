@@ -4,3 +4,6 @@
 [submodule "tufte-org-mode"]
 	path = tufte-org-mode
 	url = https://github.com/tsdye/tufte-org-mode.git
+[submodule "org-wiki"]
+	path = org-wiki
+	url = https://github.com/caiorss/org-wiki

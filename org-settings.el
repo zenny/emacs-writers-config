@@ -1,6 +1,6 @@
 ;;; ====== Org-mode configuration ======
 
-(use-package org)
+(require 'org)
 (use-package org-inlinetask)
 (use-package org-mouse)
 (use-package org-agenda)
@@ -285,6 +285,18 @@
   (setq org-brain-visualize-default-choices 'all)
   (setq org-brain-title-max-length 12)
   )
+
+;;* ===== Org-wiki =====
+
+(add-to-list 'load-path (expand-file-name "org-wiki" emacs-main-dir))
+(require 'org-wiki)
+
+;; Paths to Wiki locations
+(setq org-wiki-location-list
+      '(
+	"~/org/notebook/wiki"
+	"~/projects/ettelon/wiki)"
+	))
 
 ;;* ===== Org ref ======
 
