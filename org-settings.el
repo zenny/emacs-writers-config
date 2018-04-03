@@ -298,6 +298,22 @@
 	"~/projects/ettelon/wiki)"
 	))
 
+(setq org-wiki-template
+      (string-trim
+       "
+#+TITLE: %n
+#+DESCRIPTION:
+#+KEYWORDS:
+#+STARTUP:  content
+#+DATE: %d
+
+- [[wiki:index][Index]]
+
+- Related: 
+
+* %n
+"))
+
 ;;* ===== Org ref ======
 
 (use-package org-ref
