@@ -86,7 +86,7 @@
   (setq easy-hugo-root "~/public_workspace")
   (setq easy-hugo-previewtime "300")
   (setq easy-hugo-default-ext ".org")
-  :bind ( "C-c C-c C-w" . easy-hugo)
+  :bind ( "C-c C-n p" . easy-hugo)
   )
 
 ;; ===== Elfeed for RSS feeds =====
