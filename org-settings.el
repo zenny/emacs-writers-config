@@ -275,7 +275,7 @@
 (use-package org-brain
   :ensure t
   :init
-  (setq org-brain-path "brain/")
+  (setq org-brain-path "notebook/brain/")
   :config
   (setq org-id-track-globally t)
   (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
