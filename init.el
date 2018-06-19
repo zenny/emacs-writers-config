@@ -5,7 +5,7 @@
 ;; 2017-10-28
 
 ;; Must come before configurations of installed packages
-(package-initialize)
+(package-initialize nil)
 
 ;; Garbage collection is less frequent
 (setq gc-cons-threshold 80000000)
@@ -33,6 +33,8 @@
 
 (require 'package)
 
+(setq package-enable-at-startup nil)
+
 (add-to-list
  'package-archives
  '("melpa" . "http://melpa.org/packages/") t)
@@ -47,13 +49,22 @@
   (shell-command "git submodule update --init"))
 
 (require 'bootstrap)
-(require 'packages)
 
+;; ====== Bootstrap 'use-package'
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(setq use-package-verbose t)
+(eval-when-compile
+  (require 'use-package))
 
 ;; it appears this help library is not loaded fully in the emacs-win
 ;; directory. See issue #119. This appears to fix that.
 (when (file-directory-p (expand-file-name "emacs-win" emacs-main-dir))
   (load-library "help"))
+
+(require 'packages)
 
 (provide 'init)
 

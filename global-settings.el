@@ -44,7 +44,7 @@
 ;;(load-theme 'doom-peacock t)
 
 ;;** Set themes index
-(setq owl/themes '(doom-peacock doom-tomorrow-night flatui-dark cyberpunk doom-one-light leuven eink flatui))
+(setq owl/themes '(flatui-dark flatui doom-peacock doom-tomorrow-night cyberpunk doom-one-light leuven eink))
 (setq owl/themes-index 0)
 
 ;;** Function to cycle through themes

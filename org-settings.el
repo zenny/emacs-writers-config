@@ -1,9 +1,21 @@
 ;;; ====== Org-mode configuration ======
 
-(require 'org)
-(require 'org-inlinetask)
-(require 'org-mouse)
-(require 'org-agenda)
+(use-package org-plus-contrib
+  :ensure t
+  :mode ("\\.org\\'" . org-mode)
+  :init
+  ;; Use the current window for C-c ' source editing
+  (setq org-src-window-setup 'current-window
+	org-support-shift-select t)
+  (setq org-return-follows-link t)
+  :bind
+  (("C-c l" . org-store-link)
+   ("C-c L" . org-insert-link-global)
+   ("C-c o" . org-open-at-point-global)
+   ("C-c a" . org-agenda)
+   ("C-c c" . org-capture)
+   ("s-<SPC>" . org-mark-ring-goto)
+   ("H-." . org-time-stamp-inactive)))
 
 ;;* ===== Configuration of org-mode =====
 
@@ -28,10 +40,12 @@
              '("\\.pdf\\'" . (lambda (file link)
 			       (org-pdfview-open link))))
 ;; Custom key bindings
-(global-set-key (kbd "<f9> o")
+(global-set-key (kbd "C-c C-x o")
 		(lambda () (interactive) (find-file "~/org/organizer.org")))
 (global-set-key (kbd "<f9> c") 'calendar)
 (global-set-key (kbd "<f9> m") 'gnus)
+
+;; Org-mouse 
 
 ;; Make editing invisible regions smart
 (setq org-catch-invisible-edits 'smart)
@@ -50,11 +64,18 @@
 ;; Update ID file on startup
 (org-id-update-id-locations)
 
-;;* ===== Speed commands ======
+;;* ===== Speed commands and inline tasks ======
 
-(setq org-todo-keywords '((sequence "IDEA(i)")
-			  (sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)")
-			  (sequence "|" "CANCELED(c)" "DELEGATED(l)" "SOMEDAY(f)")))
+(use-package org-inlinetask
+  :ensure org-plus-contrib
+  :bind (:map org-mode-map ("C-c C-x t" . org-inlinetask-insert-task))
+  :after (org)
+  :commands (org-inlinetask-insert-task)
+  )
+
+  (setq org-todo-keywords '((sequence "IDEA(i)")
+			    (sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)")
+			    (sequence "|" "CANCELED(c)" "DELEGATED(l)" "SOMEDAY(f)")))
 
 (setq org-enforce-todo-dependencies t)
 
@@ -107,70 +128,29 @@
 
 ;;* ===== Agenda setup =====
 
-;; Org files targeted for agenda
-(setq org-agenda-files (quote ("~/org/bugout.org"
-			       "~/org/organizer.org"
-			       "~/org/food.org"
-			       "~/org/library.org"
-			       "~/org/notebook/notebook.org"))) 
-
-;; Record time task is finished when set to DONE
-(setq org-log-done 'time)
-
-(setq org-upcoming-deadline '(:foreground "blue" :weight bold))
-
-;; Provides unscheduled tasks
-(defun owl/org-agenda-skip-scheduled ()
-  (org-agenda-skip-entry-if 'scheduled 'deadline 'regexp "\n]+>"))
+(use-package org-agenda
+  :ensure org-plus-contrib
+  :init
+  ;; Org files targeted for agenda
+  (setq org-agenda-files (quote ("~/org/bugout.org" 
+				 "~/org/organizer.org"
+				 "~/org/food.org"
+				 "~/org/library.org"
+				 "~/org/notebook/notebook.org")))
+  ;; Record time task is finished when set to DONE
+  (setq org-log-done 'time)
+  (setq org-upcoming-deadline '(:foreground "blue" :weight bold))
+  :config
+  ;; Provides unscheduled tasks
+  (defun owl/org-agenda-skip-scheduled ()
+    (org-agenda-skip-entry-if 'scheduled 'deadline 'regexp "\n]+>"))
+  )
 
 ;; Org-super-agenda
 
 (use-package org-super-agenda
   :ensure t
-  )
-
-(let ((org-super-agenda-groups
-       '(;; Each group has an implicit boolean OR operator between its selectors.
-         (:name "Today"  ; Optionally specify section name
-                :time-grid t  ; Items that appear on the time grid
-                :todo "TODAY")  ; Items that have this TODO keyword
-         (:name "Important"
-                ;; Single arguments given alone
-                :tag "bills"
-                :priority "A")
-         ;; Set order of multiple groups at once
-         (:order-multi (2 (:name "Shopping in town"
-                                 ;; Boolean AND group matches items that match all subgroups
-                                 :and (:tag "shopping" :tag "@town"))
-                          (:name "Food-related"
-                                 ;; Multiple args given in list with implicit OR
-                                 :tag ("FOOD" "dinner"))
-                          (:name "Personal"
-                                 :habit t
-                                 :tag "personal")
-                          (:name "Space-related (non-moon-or-planet-related)"
-                                 ;; Regexps match case-insensitively on the entire entry
-                                 :and (:regexp ("space" "NASA")
-                                               ;; Boolean NOT also has implicit OR between selectors
-                                               :not (:regexp "moon" :tag "planet")))))
-         ;; Groups supply their own section names when none are given
-         (:todo "WAITING" :order 8)  ; Set order of this section
-         (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
-                ;; Show this group at the end of the agenda (since it has the
-                ;; highest number). If you specified this group last, items
-                ;; with these todo keywords that e.g. have priority A would be
-                ;; displayed in that group instead, because items are grouped
-                ;; out in the order the groups are listed.
-                :order 9)
-         (:priority<= "B"
-                      ;; Show this section after "Today" and "Important", because
-                      ;; their order is unspecified, defaulting to 0. Sections
-                      ;; are displayed lowest-number-first.
-                      :order 1)
-         ;; After the last group, the agenda will display items that didn't
-         ;; match any of these groups, with the default order position of 99
-         )))
-  (org-agenda nil "a"))
+  :config)
 
 ;; Agenda views
 
@@ -207,7 +187,8 @@
 
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 
-(require 'org-habit)
+(use-package org-habit
+  :ensure org-plus-contrib)
 
 ;;* ===== Capture =====
 

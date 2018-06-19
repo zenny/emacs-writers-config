@@ -24,7 +24,7 @@
   :ensure t)
 
 ;; Comment out this line if Emacs daemon won't start
-(pdf-tools-install)
+;(pdf-tools-install)
 
 ;; Interleave
 (use-package interleave
@@ -32,39 +32,11 @@
 
 ;; ===== Org mode =====
 
-(use-package org-plus-contrib
-  :mode ("\\.org\\'" . org-mode)
-  :init
-  ;; Use the current window for C-c ' source editing
-  (setq org-src-window-setup 'current-window
-	org-support-shift-select t)
-  
-  (setq org-return-follows-link t)
-  :bind
-  (("C-c l" . org-store-link)
-   ("C-c L" . org-insert-link-global)
-   ("C-c o" . org-open-at-point-global)
-   ("C-c a" . org-agenda)
-   ("C-c c" . org-capture)
-   ("s-<SPC>" . org-mark-ring-goto)
-   ("H-." . org-time-stamp-inactive)))
-
 (use-package org-settings
   :ensure nil
   :load-path emacs-main-dir
-  :bind
-  ("s--" . org-subscript-region-or-point)
-  ("s-=" . org-superscript-region-or-point)
-  ("s-i" . org-italics-region-or-point)
-  ("s-b" . org-bold-region-or-point)
-  ("s-v" . org-verbatim-region-or-point)
-  ("s-c" . org-code-region-or-point)
-  ("s-u" . org-underline-region-or-point)
-  ("s-+" . org-strikethrough-region-or-point)
-  ("s-4" . org-latex-math-region-or-point)
-  ("s-e" . ivy-insert-org-entity)
-  :init
-  (require 'org-settings))
+  :init (require 'org-settings)
+  )
 
 ;; ===== Web browsers, EWW, and Firefox =====
 
