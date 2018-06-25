@@ -248,6 +248,25 @@
 (use-package dash)
 (use-package dash-functional)
 
+;; ===== Pdf-tools =====
+
+;; Thing is a toad to install
+;; https://github.com/politza/pdf-tools
+;; ~/builds/pdf-tools contains some necessary files
+
+(use-package let-alist
+  :ensure t)
+
+(use-package tablist
+  :ensure t)
+
+;; Comment out this line if Emacs daemon won't start
+(pdf-tools-install)
+
+;; Interleave
+(use-package interleave
+  :ensure t)
+
 ;; ===== Literate programming ======
 
 ;; Outline-minor-mode key map
@@ -319,25 +338,6 @@
         '((t   . ivy--regex-ignore-order))))
 
 (use-package ivy-hydra)
-
-;; ===== Pdf-tools =====
-
-;; Thing is a toad to install
-;; https://github.com/politza/pdf-tools
-;; ~/builds/pdf-tools contains some necessary files
-
-(use-package let-alist
-  :ensure t)
-
-(use-package tablist
-  :ensure t)
-
-;; Comment out this line if Emacs daemon won't start
-					;(pdf-tools-install)
-
-;; Interleave
-(use-package interleave
-  :ensure t)
 
 ;; ===== Python ======
 
