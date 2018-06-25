@@ -72,8 +72,7 @@
   :ensure nil
   :load-path emacs-main-dir
   :init (require 'global-settings)
-  :bind
-  ("C-x C-b" . ibuffer))
+  )
 
 ;; ===== Org-mode settings =====
 
