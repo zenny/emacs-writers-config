@@ -24,15 +24,6 @@
 
 (use-package s)
 
-;; ===== Path =====
-
-;; Bring Emacs path and shell path in line with each other
-
-(use-package exec-path-from-shell
-  :defer 10
-  :config
-  (exec-path-from-shell-initialize))
-
 ;; ===== Backups ======
 
 (setq backup-by-copying t
@@ -43,6 +34,14 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
+
+;; ===== Magit =====
+
+(use-package magit
+  :init (setq magit-completing-read-function 'ivy-completing-read)
+  :bind
+  ("<f5>" . magit-status)
+  ("C-c v t" . magit-status))
 
 ;; ====== Hydra =======
 
@@ -192,8 +191,7 @@
   :config
   (beacon-mode 1))
 
-
-;; ===== Editing =====
+;; ===== Editing and writing =====
 
 ;; Visual undo 
 
@@ -244,16 +242,18 @@
 	    (ispell-change-dictionary "en_US")
 	    (flyspell-buffer))) 
 
-
-
 (use-package flx)
 
-;;* ===== Literate programming ======
+;; Provide functions for working on lists
+(use-package dash)
+(use-package dash-functional)
 
-;;** Outline-minor-mode key map
+;; ===== Literate programming ======
+
+;; Outline-minor-mode key map
 (define-prefix-command 'cm-map nil "Outline-")
 
-;;*** Hide
+;; Hide
 (define-key cm-map "q" 'hide-sublevels)    ; Hide everything but the top-level headings
 (define-key cm-map "t" 'hide-body)         ; Hide everything but headings (all body lines)
 (define-key cm-map "o" 'hide-other)        ; Hide other branches
@@ -261,13 +261,14 @@
 (define-key cm-map "l" 'hide-leaves)       ; Hide body lines in this entry and sub-entries
 (define-key cm-map "d" 'hide-subtree)      ; Hide everything in this entry and sub-entries
 
-;;*** Show
+;; Show
 (define-key cm-map "a" 'show-all)          ; Show (expand) everything
 (define-key cm-map "e" 'show-entry)        ; Show this heading's body
 (define-key cm-map "i" 'show-children)     ; Show this heading's immediate child sub-headings
 (define-key cm-map "k" 'show-branches)     ; Show all sub-headings under this heading
 (define-key cm-map "s" 'show-subtree)      ; Show (expand) everything in this heading & below
-;;*** Move
+
+;; Move
 (define-key cm-map "u" 'outline-up-heading)                ; Up
 (define-key cm-map "n" 'outline-next-visible-heading)      ; Next
 (define-key cm-map "p" 'outline-previous-visible-heading)  ; Previous
@@ -275,16 +276,23 @@
 (define-key cm-map "b" 'outline-backward-same-level)       ; Backward - same level
 (global-set-key "\M-o" cm-map)
 
-;;* ===== Buffer navigation & Ivy =====
+;; ===== Buffer navigation & Ivy =====
 
-;;** Direx
+;; Bring Emacs path and shell path in line with each other
+
+(use-package exec-path-from-shell
+  :defer 10
+  :config
+  (exec-path-from-shell-initialize))
+
+;; Direx
 (use-package direx
   :ensure t
   :config
   (require 'direx)
   (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory))
 
-;;** Ivy
+;; Ivy
 (use-package ivy
   :ensure t
   :diminish (ivy-mode . "")
@@ -312,37 +320,6 @@
 
 (use-package ivy-hydra)
 
-;;** Eyebrowse
-;; Easy workspaces creation and switching
-;; (use-package eyebrowse                  
-;;   :ensure t
-;;   :config
-;;   (setq eyebrowse-mode-line-separator " "
-;; 	eyebrowse-new-workspace t)
-
-;;   (eyebrowse-mode t))
-
-;;* ===== Magit =====
-
-(use-package magit
-  :init (setq magit-completing-read-function 'ivy-completing-read)
-  :bind
-  ("<f5>" . magit-status)
-  ("C-c v t" . magit-status))
-
-;; (use-package magithub
-;;   :ensure t
-;;   :after magit
-;;   :config (magithub-feature-autoinject t))
-
-;; ===== The weather =====
-(use-package wttrin
-  :ensure t
-  :init
-  (setq wttrin-default-accept-language '("Accept-Language" . "en-US"))
-  (setq wttrin-default-cities '("San Diego" "Aix-en-Provence" "Olympia"
-				"Seoul")))
-
 ;; ===== Pdf-tools =====
 
 ;; Thing is a toad to install
@@ -362,17 +339,20 @@
 (use-package interleave
   :ensure t)
 
-;; ===== Other packages ======
-
-
-;; Provide functions for working on lists
-(use-package dash)
-(use-package dash-functional)
+;; ===== Python ======
 
 ;; Python editing mode
 (use-package elpy
   :config
   (elpy-enable))
+
+;; ===== The weather =====
+(use-package wttrin
+  :ensure t
+  :init
+  (setq wttrin-default-accept-language '("Accept-Language" . "en-US"))
+  (setq wttrin-default-cities '("San Diego" "Aix-en-Provence" "Olympia"
+				"Seoul")))
 
 ;; ===== End matter
 
