@@ -1,4 +1,4 @@
-;;; ===== Web browsers, EWW, and Firefox =====
+;; ===== Web and blogging settings =====
 
 (use-package eww
   :defer t
@@ -56,6 +56,44 @@
     (ffap-next-url t t)))
 
 (global-set-key (kbd "C-c u") 'browse-last-url-in-brower)
+
+;; ===== Easy Hugo ======
+
+(use-package easy-hugo
+  :ensure t
+  :init
+  (setq easy-hugo-basedir "~/public_workspace")
+  (setq easy-hugo-postdir "content/posts")
+  (setq easy-hugo-url "http://www.matthew-edward-adams.org")
+  (setq easy-hugo-sshdomain "~/.ssh/config")
+  (setq easy-hugo-root "~/public_workspace")
+  (setq easy-hugo-previewtime "300")
+  (setq easy-hugo-default-ext ".org")
+  :bind ( "C-c C-n p" . easy-hugo)
+  )
+
+;; ===== Elfeed for RSS feeds =====
+
+(use-package elfeed
+  :ensure t
+  :bind ("C-x w" . elfeed)
+  :init
+  (setq elfeed-use-curl t)
+  (use-package elfeed-org
+    :ensure t
+    :init 
+    (setq rmh-elfeed-org-files (list "~/org/elfeed.org"))
+    )
+  :config
+  (define-key elfeed-show-mode-map (kbd "j") 'next-line)
+  (define-key elfeed-show-mode-map (kbd "k") 'previous-line)
+  (use-package elfeed-web
+    :ensure t
+    ))
+
+;; Stack Exchange client
+(use-package sx
+  :ensure t)
 
 (provide 'web-settings)
 
