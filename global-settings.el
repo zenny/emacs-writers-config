@@ -13,6 +13,16 @@
 
 (setq custom-file (expand-file-name "user/custom.el" emacs-main-dir))
 
+;; ===== Accessibility =====
+
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :init
+  (which-key-mode)
+  (which-key-setup-side-window-right-bottom)
+  (setq which-key-max-description-length 60))
+
 ;; Answer with y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -34,6 +44,12 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
+
+;; ===== Midnight mode =====
+
+;; Kills inactive buffers (three days of non-use)
+
+(use-package midnight)
 
 ;; ===== Magit =====
 
