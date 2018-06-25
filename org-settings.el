@@ -1,7 +1,7 @@
 ;;; ====== Org-mode configuration ======
 
-(use-package org-plus-contrib
-  :ensure t
+(use-package org
+  :ensure org-plus-contrib
   :mode ("\\.org\\'" . org-mode)
   :init
   ;; Use the current window for C-c ' source editing
@@ -282,7 +282,7 @@
          (ruby . t)
          (gnuplot . t)
          (clojure . t)
-         (sh . t)
+         (shell . t)
          (ledger . t)
          (org . t)
          (plantuml . t)
