@@ -3,9 +3,7 @@
 ;; Principle of KISS but leave room for powerful things
 ;; Matthew Adams
 ;; 2017-10-28
-
-;; Must come before configurations of installed packages
-(package-initialize nil)
+;; Refactoring 2018-06-24
 
 ;; Garbage collection is less frequent
 (setq gc-cons-threshold 80000000)
@@ -13,9 +11,6 @@
 ;; Encourage Emacs 25 or above
 (when (version< emacs-version "25.0")
   (warn "You probably need at least Emacs 25. You should upgrade. You may need to install leuven-theme manually."))
-
-;; UTF-8
-(set-language-environment "UTF-8")
 
 ;; ===== Directory structure =====
 
@@ -32,8 +27,8 @@
 ;; ===== Package control and loading =====
 
 (require 'package)
-
 (setq package-enable-at-startup nil)
+(package-initialize)
 
 (add-to-list
  'package-archives
@@ -50,6 +45,13 @@
 
 (require 'bootstrap)
 
+;; Quelpa for grabbing and building packages from source (Github ...)
+(use-package quelpa)
+(use-package quelpa-use-package)
+(quelpa-use-package-activate-advice)
+
+(setq load-prefer-newer t)
+
 ;; ====== Bootstrap 'use-package'
 
 (unless (package-installed-p 'use-package)
@@ -59,12 +61,38 @@
 (eval-when-compile
   (require 'use-package))
 
-;; it appears this help library is not loaded fully in the emacs-win
-;; directory. See issue #119. This appears to fix that.
-(when (file-directory-p (expand-file-name "emacs-win" emacs-main-dir))
-  (load-library "help"))
+(setq use-package-verbose t
+      use-package-minimum-reported-time 0)
 
-(require 'packages)
+(setq use-package-always-ensure t)
+
+;; ====== Global settings =======
+
+(use-package global-settings
+  :ensure nil
+  :load-path emacs-main-dir
+  :init (require 'global-settings)
+  :bind
+  ("C-x C-b" . ibuffer))
+
+;; ===== Org-mode settings =====
+
+(use-package org-settings
+  :ensure nil
+  :load-path emacs-main-dir
+  :init (require 'org-settings)
+  )
+
+;; ===== Web and blogging settings =====
+
+(use-package web-settings
+  :ensure nil
+  :load-path emacs-main-dir
+  :init
+  (require 'web-settings) 
+  )
+
+;; ===== End matter =====
 
 (provide 'init)
 

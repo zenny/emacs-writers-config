@@ -1,11 +1,11 @@
 ;;;  ====== Global settings =====
 
-;;* ======  Personal information ======
+;; ======  Personal information ======
 
 (setq user-full-name "Matthew E. Adams"
       user-mail-address "m2eadams@gmail.com")
 
-;;* ===== Startup behavior =====
+;; ===== Startup behavior =====
 
 (setq inhibit-startup-screen t) ;; stop showing startup screen
 (tool-bar-mode 0)               ;; remove the icons
@@ -13,23 +13,57 @@
 
 (setq custom-file (expand-file-name "user/custom.el" emacs-main-dir))
 
-;;* ===== Keybindgs using General package =====
+;; Answer with y/n instead of yes/no
+(fset 'yes-or-no-p 'y-or-n-p)
 
-;; For later exploration
+(use-package auto-complete
+  :diminish auto-complete-mode
+  :config (ac-config-default))
 
-(use-package general
-  :ensure t)
+;; ====== Emacs string manipulation library ======
 
+(use-package s)
+
+;; ===== Path =====
+
+;; Bring Emacs path and shell path in line with each other
+
+(use-package exec-path-from-shell
+  :defer 10
+  :config
+  (exec-path-from-shell-initialize))
+
+;; ===== Backups ======
+
+(setq backup-by-copying t
+      create-lockfiles nil
+      backup-directory-alist '((".*" . "~/.saves"))
+      ;; auto-save-file-name-transforms `((".*" "~/.saves" t))
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+
+;; ====== Hydra =======
 
 (use-package hydra
+  :ensure t
   :init
   (setq hydra-is-helpful t)
   
   :config
   (require 'hydra-ox))
 
-;;* ===== Unicode ======
+;; ===== Keybindings ====== 
 
+;; M-x describe-personal-keybindings to see personal customizations!
+
+(use-package bind-key
+  :bind ("C-h B" . describe-personal-keybindings))
+
+;; ===== Unicode treatment ======
+
+(set-language-environment "UTF-8")
 (set-charset-priority 'unicode)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -38,16 +72,13 @@
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
-;;* ===== Theme and font ======
+;; ===== Theme management ======
 
-;;** Startup theme
-;;(load-theme 'doom-peacock t)
-
-;;** Set themes index
+;; Set themes index
 (setq owl/themes '(flatui-dark flatui doom-peacock doom-tomorrow-night cyberpunk doom-one-light leuven eink))
 (setq owl/themes-index 0)
 
-;;** Function to cycle through themes
+;; Function to cycle through themes
 (defun owl/cycle-theme ()
   (interactive)
   (setq owl/themes-index (% (1+ owl/themes-index) (length owl/themes)))
@@ -55,7 +86,7 @@
 
 (global-set-key (kbd "<f12>") 'owl/cycle-theme)
 
-;;** Load indexed theme and disable previous theme to prevent overlay
+;; Load indexed theme and disable previous theme to prevent overlay
 (defun owl/load-indexed-theme ()
   (owl/try-load-theme (nth owl/themes-index owl/themes)))
 
@@ -64,37 +95,42 @@
       (mapcar #'disable-theme (remove theme custom-enabled-themes))
     (message "Unable to find theme file for ‘%s’" theme)))
 
-;;** Default fonts
+;; ===== Font management and appearance =====
+
+;; Turn on font-lock everywhere
+(global-font-lock-mode t)
+
+;; Default fonts
 (add-to-list 'default-frame-alist '(font . "Input Mono 10" ))
 (set-face-attribute 'default t :font "Input Mono 10" )
 
-;;** Use variable width font faces in current buffer
+;; Use variable width font faces in current buffer
 (defun my-buffer-face-mode-variable ()
   "Set font to a variable width (proportional) fonts in current buffer"
   (interactive)
   (setq buffer-face-mode-face '(:family "GentiumPlus" :height 100))
   (buffer-face-mode))
 
-;;** Use monospaced font faces in current buffer
+;; Use monospaced font faces in current buffer
 (defun my-buffer-face-mode-fixed ()
   "Sets a fixed width (monospace) font in current buffer"
   (interactive)
   (setq buffer-face-mode-face '(:family "Input Mono" :height 100))
   (buffer-face-mode))
 
-;;** Set default font faces for Info and ERC modes
+;; Set default font faces for Info and ERC modes
 (add-hook 'erc-mode-hook 'my-buffer-face-mode-variable)
 (add-hook 'Info-mode-hook 'my-buffer-face-mode-variable)
 
-;;** Control-c + Control-f/v to change font type
-(global-set-key (kbd "C-c C-f") 'my-buffer-face-mode-fixed)
-(global-set-key (kbd "C-c C-v") 'my-buffer-face-mode-variable)
+;; Control-c + Control-f/v to change font type: for writing
+(bind-keys ("C-c C-f" . my-buffer-face-mode-fixed)
+	   ("C-c C-v" . my-buffer-face-mode-variable))
 
-;;** Control-c + Control+Arrows to change font size
-(global-set-key (kbd "C-c C-<up>") 'text-scale-increase)
-(global-set-key (kbd "C-c C-<down>") 'text-scale-decrease)
+;; Control-c + Control+Arrows to change font size
+(bind-keys ("C-c C-<up>" . text-scale-increase)
+	   ("C-c C-<down>" . text-scale-decrease))
 
-;;** Hydra to zoom text
+;; Hydra to zoom text
 (defhydra hydra-zoom (global-map "<f6>")
   ("g" text-scale-increase "in")
   ("l" text-scale-decrease "out") 
@@ -102,48 +138,23 @@
   ("0" (text-scale-set 0) :bind nil :exit t)
   ("1" (text-scale-set 0) nil :bind nil :exit t))
 
-;;* ===== Backup ======
-
-(setq backup-inhibited t)       ;; Disable backup creation
-
-(setq auto-save-list-file-prefix (expand-file-name "auto-save-list/saves-" emacs-main-dir))
-
-(require 'savehist)
-(setq savehist-file (concat user-emacs-directory "savehist"))
-(savehist-mode 1)
-(setq savehist-save-minibuffer-history 1)
-(setq savehist-additional-variables
-      '(kill-ring
-        search-ring
-        regexp-search-ring))
-(setq-default save-place t)
-
-;;* ===== Visual appearance and behaviors ======
-
-;;** Answer with y/n instead of yes/no
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;;** Handle long lines by visual wrapping but no line-returns
-(global-visual-line-mode 1)
-
-;;** Turn on font-lock everywhere
-(global-font-lock-mode t)
+;; ===== Visual appearance and behaviors ======
 
 (auto-fill-mode -1)             ;; Disprefer auto-fill-mode
 (show-paren-mode 1)             ;; Highlight parentheses
 (setq show-paren-style 'mixed)  ;; Alternatives: 'expression, 'parenthesis
 
-;;** Cursor color
-;;(set-cursor-color "#ffffff")
+;; Handle long lines by visual wrapping but no line-returns
+(global-visual-line-mode 1)
 
-;;** Change cursor shape
+;; Change cursor shape
 (setq-default cursor-type 'box)
 
-;;** Show lines and column numbers
+;; Show lines and column numbers
 (line-number-mode 1)
 (column-number-mode 1)
 
-;;** End annoying buffers with popwin
+;; End annoying buffers with popwin
 (use-package popwin
   :ensure t
   :config
@@ -167,9 +178,24 @@
 ;; | C-u    | popwin:universal-display              |
 ;; | 1      | popwin:one-window                     |
 
-;;* ===== Editing =====
+(use-package aggressive-indent
+  :config (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
 
-;;** Visual undo 
+;; Rainbow mode
+;; When activated, all strings representing colors will
+;; be highlighted with the color they represent.
+(use-package rainbow-mode
+  :ensure t)
+
+;; Make cursor more invisible when moving over long distance
+(use-package beacon
+  :config
+  (beacon-mode 1))
+
+
+;; ===== Editing =====
+
+;; Visual undo 
 
 (use-package undo-tree
   :ensure t
@@ -181,7 +207,7 @@
     (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
     (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo)))
 
-;;** Spell checking
+;; Spell checking
 
 (use-package flyspell-correct-ivy
   :ensure t
@@ -305,9 +331,51 @@
   ("C-c v t" . magit-status))
 
 ;; (use-package magithub
-;;   :after magit)
+;;   :ensure t
+;;   :after magit
+;;   :config (magithub-feature-autoinject t))
 
-;;* ===== End matter
+;; ===== The weather =====
+(use-package wttrin
+  :ensure t
+  :init
+  (setq wttrin-default-accept-language '("Accept-Language" . "en-US"))
+  (setq wttrin-default-cities '("San Diego" "Aix-en-Provence" "Olympia"
+				"Seoul")))
+
+;; ===== Pdf-tools =====
+
+;; Thing is a toad to install
+;; https://github.com/politza/pdf-tools
+;; ~/builds/pdf-tools contains some necessary files
+
+(use-package let-alist
+  :ensure t)
+
+(use-package tablist
+  :ensure t)
+
+;; Comment out this line if Emacs daemon won't start
+					;(pdf-tools-install)
+
+;; Interleave
+(use-package interleave
+  :ensure t)
+
+;; ===== Other packages ======
+
+
+;; Provide functions for working on lists
+(use-package dash)
+(use-package dash-functional)
+
+;; Python editing mode
+(use-package elpy
+  :config
+  (elpy-enable))
+
+;; ===== End matter
+
 (provide 'global-settings)
 
 ;;; Local Variables:
