@@ -15,6 +15,14 @@
 
 ;; ===== Accessibility =====
 
+(use-package hydra
+  :ensure t
+  :init
+  (setq hydra-is-helpful t)
+
+  :config
+  (require 'hydra-ox))
+
 (use-package which-key
   :ensure t
   :diminish which-key-mode
@@ -23,12 +31,61 @@
   (which-key-setup-side-window-right-bottom)
   (setq which-key-max-description-length 60))
 
+(use-package helpful
+  :bind
+  ("C-h f" . helpful-function)
+  ("C-h x" . helpful-command)
+  ("C-h z" . helpful-macro))
+
 ;; Answer with y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (use-package auto-complete
   :diminish auto-complete-mode
   :config (ac-config-default))
+
+;; See http://bnbeckwith.com/bnb-emacs/ for supercharged variant on C-x o traversal:
+(use-package ace-window
+  :ensure t
+  :bind
+  ("<f9> a" . ace-window)
+  :config
+  (setq aw-keys '(?j ?k ?l ?\; ?n ?m)
+        aw-leading-char-style 'path
+        aw-dispatch-always t
+        aw-dispatch-alist
+        '((?x aw-delete-window "Ace - Delete Window")
+          (?c aw-swap-window   "Ace - Swap window")
+          (?n aw-flip-window   "Ace - Flip window")
+          (?v aw-split-window-vert "Ace - Split Vert Window")
+          (?h aw-split-window-horz "Ace - Split Horz Window")
+          (?m delete-other-windows "Ace - Maximize Window")
+          (?b balance-windows)))
+
+  (defhydra hydra-window-size (:color amaranth)
+    "Window size"
+    ("h" shrink-window-horizontally "shrink horizontal")
+    ("j" shrink-window "shrink vertical")
+    ("k" enlarge-window "enlarge vertical")
+    ("l" enlarge-window-horizontally "enlarge horizontal")
+    ("q" nil "quit"))
+  (add-to-list 'aw-dispatch-alist '(?w hydra-window-size/body) t)
+
+  (defhydra hydra-window-frame (:color red)
+    "Frame"
+    ("f" make-frame "new frame")
+    ("x" delete-frame "delete frame")
+    ("q" nil "quit"))
+  (add-to-list 'aw-dispatch-alist '(?\; hydra-window-frame/body) t)
+
+  (defhydra hydra-window-scroll (:color amaranth)
+    "Scroll other window"
+    ("n" scroll-other-window "scroll")
+    ("p" scroll-other-window-down "scroll down")
+    ("q" nil "quit"))
+  (add-to-list 'aw-dispatch-alist '(?o hydra-window-scroll/body) t)
+
+  (set-face-attribute 'aw-leading-char-face nil :height 2.0))
 
 ;; ====== Emacs string manipulation library ======
 
@@ -59,33 +116,12 @@
   ("<f5>" . magit-status)
   ("C-c v t" . magit-status))
 
-;; ====== Hydra =======
-
-(use-package hydra
-  :ensure t
-  :init
-  (setq hydra-is-helpful t)
-  
-  :config
-  (require 'hydra-ox))
-
 ;; ===== Keybindings ====== 
 
 ;; M-x describe-personal-keybindings to see personal customizations!
 
 (use-package bind-key
   :bind ("C-h B" . describe-personal-keybindings))
-
-;; ===== Unicode treatment ======
-
-(set-language-environment "UTF-8")
-(set-charset-priority 'unicode)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
 ;; ===== Theme management ======
 
@@ -153,7 +189,29 @@
   ("0" (text-scale-set 0) :bind nil :exit t)
   ("1" (text-scale-set 0) nil :bind nil :exit t))
 
+(use-package all-the-icons
+  :ensure t
+  :defer 10)
+
+;; Unicode treatment
+
+(set-language-environment "UTF-8")
+(set-charset-priority 'unicode)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+
 ;; ===== Visual appearance and behaviors ======
+
+(use-package pretty-mode
+  :disabled
+  :config
+  (global-pretty-mode t)
+  (pretty-activate-groups
+   '(:sub-and-superscripts :greek :arithmetic-nary)))
 
 (auto-fill-mode -1)             ;; Disprefer auto-fill-mode
 (show-paren-mode 1)             ;; Highlight parentheses
@@ -223,6 +281,20 @@
 
 ;; Spell checking
 
+(use-package ace-flyspell
+  :ensure t
+  :commands (ace-flyspell-setup)
+  :bind
+  ("<f7> s" . hydra-fly/body)
+  :init
+  (add-hook 'flyspell-mode-hook 'ace-flyspell-setup)
+  (defhydra hydra-fly (:color pink)
+    ("n" flyspell-goto-next-error "Next error")
+    ("c" ispell-word "Correct word")
+    ("j" ace-flyspell-jump-word "Jump word")
+    ("." ace-flyspell-dwim "dwim")
+    ("q" nil "Quit")))
+
 (use-package flyspell-correct-ivy
   :ensure t
   :init
@@ -258,12 +330,6 @@
 	    (ispell-change-dictionary "en_US")
 	    (flyspell-buffer))) 
 
-(use-package flx)
-
-;; Provide functions for working on lists
-(use-package dash)
-(use-package dash-functional)
-
 ;; ===== Pdf-tools =====
 
 ;; Thing is a toad to install
@@ -285,33 +351,31 @@
 
 ;; ===== Literate programming ======
 
-;; Outline-minor-mode key map
-(define-prefix-command 'cm-map nil "Outline-")
-
-;; Hide
-(define-key cm-map "q" 'hide-sublevels)    ; Hide everything but the top-level headings
-(define-key cm-map "t" 'hide-body)         ; Hide everything but headings (all body lines)
-(define-key cm-map "o" 'hide-other)        ; Hide other branches
-(define-key cm-map "c" 'hide-entry)        ; Hide this entry's body
-(define-key cm-map "l" 'hide-leaves)       ; Hide body lines in this entry and sub-entries
-(define-key cm-map "d" 'hide-subtree)      ; Hide everything in this entry and sub-entries
-
-;; Show
-(define-key cm-map "a" 'show-all)          ; Show (expand) everything
-(define-key cm-map "e" 'show-entry)        ; Show this heading's body
-(define-key cm-map "i" 'show-children)     ; Show this heading's immediate child sub-headings
-(define-key cm-map "k" 'show-branches)     ; Show all sub-headings under this heading
-(define-key cm-map "s" 'show-subtree)      ; Show (expand) everything in this heading & below
-
-;; Move
-(define-key cm-map "u" 'outline-up-heading)                ; Up
-(define-key cm-map "n" 'outline-next-visible-heading)      ; Next
-(define-key cm-map "p" 'outline-previous-visible-heading)  ; Previous
-(define-key cm-map "f" 'outline-forward-same-level)        ; Forward - same level
-(define-key cm-map "b" 'outline-backward-same-level)       ; Backward - same level
-(global-set-key "\M-o" cm-map)
 
 ;; ===== Buffer navigation & Ivy =====
+
+;; Use IBuffer
+
+(bind-key "C-x C-b" 'ibuffer)
+
+(setq ibuffer-show-empty-filter-groups nil)
+
+(add-hook 'ibuffer-mode-hook
+          '(lambda ()
+             (ibuffer-auto-mode 1)
+             (ibuffer-switch-to-saved-filter-groups "Standard")))
+
+(setq ibuffer-saved-filter-groups
+      '(("Standard"
+         ("Emacs" (mode . emacs-lisp-mode))
+         ("Org" (mode . org-mode))
+         ("Magit" (name . "\*magit"))
+         ("Mail" (or (mode . message-mode)
+                     (mode . mail-mode)))
+         ("HTML" (mode . html-mode))
+         ("Help" (or (name . "\*Help\*")
+		     (name . "\*Apropos\*")
+		     (name . "\*info\*"))))))
 
 ;; Bring Emacs path and shell path in line with each other
 
