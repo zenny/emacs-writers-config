@@ -281,20 +281,6 @@
 
 ;; Spell checking
 
-(use-package ace-flyspell
-  :ensure t
-  :commands (ace-flyspell-setup)
-  :bind
-  ("<f7> s" . hydra-fly/body)
-  :init
-  (add-hook 'flyspell-mode-hook 'ace-flyspell-setup)
-  (defhydra hydra-fly (:color pink)
-    ("n" flyspell-goto-next-error "Next error")
-    ("c" ispell-word "Correct word")
-    ("j" ace-flyspell-jump-word "Jump word")
-    ("." ace-flyspell-dwim "dwim")
-    ("q" nil "Quit")))
-
 (use-package flyspell-correct-ivy
   :ensure t
   :init
@@ -317,7 +303,6 @@
 					("-d" "en_US")
 					nil
 					utf-8)))
-
 (bind-key "C-c G"
 	  (lambda ()
 	    (interactive)
@@ -329,6 +314,20 @@
 	    (interactive)
 	    (ispell-change-dictionary "en_US")
 	    (flyspell-buffer))) 
+
+(use-package ace-flyspell
+  :ensure t
+  :commands (ace-flyspell-setup)
+  :bind
+  ("<f7> s" . hydra-fly/body)
+  :init
+  (add-hook 'flyspell-mode-hook 'ace-flyspell-setup)
+  (defhydra hydra-fly (:color pink)
+    ("n" flyspell-goto-next-error "Next error")
+    ("c" ispell-word "Correct word")
+    ("j" ace-flyspell-jump-word "Jump word")
+    ("." ace-flyspell-dwim "dwim")
+    ("q" nil "Quit")))
 
 ;; ===== Pdf-tools =====
 
