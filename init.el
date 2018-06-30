@@ -28,15 +28,13 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
+
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")))
+
 (package-initialize)
-
-(add-to-list
- 'package-archives
- '("melpa" . "http://melpa.org/packages/") t)
-
-(add-to-list
- 'package-archives
- '("org" . "http://orgmode.org/elpa/") t)
 
 (add-to-list 'load-path emacs-main-dir)
 
@@ -65,6 +63,13 @@
       use-package-minimum-reported-time 0)
 
 (setq use-package-always-ensure t)
+
+(use-package auto-package-update
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t
+        auto-package-update-interval 4)
+  (auto-package-update-maybe))
 
 ;; ====== Global settings =======
 
