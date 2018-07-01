@@ -1,4 +1,4 @@
-;;; ====== Org-mode configuration ======
+;;; ====== Org-mode settings ======
 
 (use-package org
   :ensure org-plus-contrib
@@ -17,9 +17,7 @@
    ("s-<SPC>" . org-mark-ring-goto)
    ("H-." . org-time-stamp-inactive))
   :config
-
-  ;; ===== Configuration of org-mode =====
-
+  
   ;; Set default org directory
   (setq org-directory "~/org")
 
@@ -47,9 +45,11 @@
   (global-set-key (kbd "<f9> m") 'gnus)
 
   ;; Org-mouse 
+					;(quelpa '(org-mouse :fetcher git url:"https://github.com/takaxp/org-mode/blob/master/lisp/org-mouse.el"))
 
-  (require 'org-mouse)
-  
+
+  ;;(require 'org-mouse)
+
   ;; Make editing invisible regions smart
   (setq org-catch-invisible-edits 'smart)
 
@@ -67,7 +67,7 @@
   ;; Update ID file on startup
   (org-id-update-id-locations)
 
-  ;;* ===== Speed commands and inline tasks ======
+  ;; ===== Speed commands and inline tasks ======
 
   (use-package org-inlinetask
     :ensure org-plus-contrib
@@ -106,7 +106,10 @@
     :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     )
 
-  ;;* ===== Org-download =====
+
+  (require 'org-checklist)
+
+  ;; ===== Org-download =====
 
   ;; For picture management, drag-and-drop ability
   ;; https://github.com/abo-abo/org-download/blob/master/org-download.el
@@ -144,22 +147,36 @@
     (setq org-log-done 'time)
     (setq org-upcoming-deadline '(:foreground "blue" :weight bold))
     :config
+    ;; Org-super-agenda
+
+    (use-package org-super-agenda
+      :ensure t
+      :config
+      (setq my-super-agenda-groups
+	    '(
+	      (:name "Today" :time-grid t :todo "TODAY")
+	      (:name "DEADLINES" :deadline t :order 1)
+	      (:name "Important" :priority "A" :order 2)
+	      )
+	    )
+      (defun my-super-agenda()
+	"generates my super-agenda"
+	(interactive)
+	(org-super-agenda-mode)
+	(let
+	    ((org-super-agenda-groups my-super-agenda-groups))
+	  (org-agenda nil "a")
+	  )
+	)
+      )
+
     ;; Provides unscheduled tasks
     (defun owl/org-agenda-skip-scheduled ()
       (org-agenda-skip-entry-if 'scheduled 'deadline 'regexp "\n]+>"))
     )
 
-  ;; Org-super-agenda
 
-  (use-package org-super-agenda
-    :ensure t
-    :config)
-
-  (require 'org-checklist)
-
-					;(quelpa '(org-checklist :fetcher git :url ""))
-
-
+  
   ;; Agenda views
 
   ;; (add-to-list
