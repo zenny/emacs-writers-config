@@ -19,7 +19,6 @@
   :ensure t
   :init
   (setq hydra-is-helpful t)
-
   :config
   (require 'hydra-ox))
 
@@ -50,7 +49,7 @@
   :bind
   ("<f9> a" . ace-window)
   :config
-  (setq aw-keys '(?j ?k ?l ?\; ?n ?m)
+  (setq aw-keys '(?j ?k ?l ?n ?m)
         aw-leading-char-style 'path
         aw-dispatch-always t
         aw-dispatch-alist
@@ -89,7 +88,8 @@
 
 ;; ====== Emacs string manipulation library ======
 
-(use-package s)
+(use-package s
+  :ensure t)
 
 ;; ===== Backups ======
 
@@ -212,6 +212,8 @@
   (global-pretty-mode t)
   (pretty-activate-groups
    '(:sub-and-superscripts :greek :arithmetic-nary)))
+
+
 
 (auto-fill-mode -1)             ;; Disprefer auto-fill-mode
 (show-paren-mode 1)             ;; Highlight parentheses
