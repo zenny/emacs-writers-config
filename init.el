@@ -10,7 +10,7 @@
 
 ;; Encourage Emacs 25 or above
 (when (version< emacs-version "25.0")
-  (warn "You probably need at least Emacs 25. You should upgrade. You may need to install leuven-theme manually."))
+  (warn "Dude, Emacs 25 or above, please."))
 
 ;; ===== Directory structure =====
 
