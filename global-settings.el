@@ -213,7 +213,7 @@
   (pretty-activate-groups
    '(:sub-and-superscripts :greek :arithmetic-nary)))
 
-
+(scroll-bar-mode -1)            ;; Removes scroll bars
 
 (auto-fill-mode -1)             ;; Disprefer auto-fill-mode
 (show-paren-mode 1)             ;; Highlight parentheses
