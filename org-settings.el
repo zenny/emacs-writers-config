@@ -223,7 +223,7 @@
   (define-key global-map "\C-cc" 'org-capture)
 
   (setq org-capture-templates `(("t" "todo" entry
-				 (file+headline ,org-default-notes-file "Projects")
+				 (file+headline ,org-default-notes-file "Project")
 				 "* TODO %?\n%U" :clock-in t :clock-resume t)
 				("n" "note" entry
 				 (file+headline ,org-default-notes-file "Refile")
