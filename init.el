@@ -44,8 +44,28 @@
 (require 'bootstrap)
 
 ;; Quelpa for grabbing and building packages from source (Github ...)
-(use-package quelpa)
-(use-package quelpa-use-package)
+
+;; Bootstrap quelpa
+(if (require 'quelpa nil t)
+    (quelpa-self-upgrade)
+  (with-temp-buffer
+    (url-insert-file-contents
+     "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
+    (eval-buffer)))
+
+;; Make Quelpa prefer MELPA-stable over melpa. This is optional but
+;; highly recommended.
+;;
+;; (setq quelpa-stable-p t)
+
+;; Install quelpa-use-package, which will install use-package as well
+(quelpa
+ '(quelpa-use-package
+   :fetcher github
+   :repo "quelpa/quelpa-use-package"
+   :stable nil))
+(require 'quelpa-use-package)
+
 (quelpa-use-package-activate-advice)
 
 (setq load-prefer-newer t)
