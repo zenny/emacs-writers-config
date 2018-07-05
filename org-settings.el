@@ -17,7 +17,7 @@
    ("s-<SPC>" . org-mark-ring-goto)
    ("H-." . org-time-stamp-inactive))
   :config
-  
+
   ;; Set default org directory
   (setq org-directory "~/org")
 
@@ -45,8 +45,7 @@
   (global-set-key (kbd "<f9> m") 'gnus)
 
   ;; Org-mouse 
-					;(quelpa '(org-mouse :fetcher git url:"https://github.com/takaxp/org-mode/blob/master/lisp/org-mouse.el"))
-
+  (quelpa '(org-mouse :fetcher github :repo "takaxp/org-mode"))
 
   ;;(require 'org-mouse)
 
@@ -345,8 +344,14 @@
     (setq org-brain-visualize-default-choices 'all)
     (setq org-brain-title-max-length 12)
     )
+  
+  ;; ===== Org-drill =====
 
-  ;;* ===== Org-wiki =====
+  ;;(quelpa 'org-drill)
+  (quelpa '(org-drill :fetcher file :path "~/.emacs.d/org-drill/org-drill.el"))
+  (quelpa '(org-drill-table :fetcher file :path "~/.emacs.d/org-drill-table/org-drill-table.el"))
+
+  ;; ===== Org-wiki =====
 
   (add-to-list 'load-path (expand-file-name "org-wiki" emacs-main-dir))
   (require 'org-wiki)
@@ -377,9 +382,7 @@
   ;;* ===== Org ref ======
 
   (use-package org-ref
-    :ensure t
-    :init
-    :config)
+    :ensure t)
 
   (use-package ebib
     :ensure t)
