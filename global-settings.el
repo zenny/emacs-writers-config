@@ -204,6 +204,17 @@
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
+;; ===== Language support =====
+
+;; Input methods
+
+;; Korean
+
+;;(require 'hangul)
+(set-fontset-font t 'hangul (font-spec :name "NanumMyeongjo-18"))
+
+;; German
+
 ;; ===== Visual appearance and behaviors ======
 
 (use-package pretty-mode
