@@ -208,12 +208,15 @@
 
 ;; Input methods
 
+;; Toggle among them WIHTOUT use of external input method switchers (e.g., IBus or Nabi)
+
 ;; Korean
 
-;;(require 'hangul)
 (set-fontset-font t 'hangul (font-spec :name "NanumMyeongjo-18"))
 
 ;; German
+
+;; Spanish
 
 ;; ===== Visual appearance and behaviors ======
 
