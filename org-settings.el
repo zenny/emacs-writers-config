@@ -14,6 +14,7 @@
    ("C-c o" . org-open-at-point-global)
    ("C-c a" . org-agenda)
    ("C-c c" . org-capture)
+   ("C-c w" . org-refile)
    ("s-<SPC>" . org-mark-ring-goto)
    ("H-." . org-time-stamp-inactive))
   :config
@@ -45,7 +46,7 @@
   (global-set-key (kbd "<f9> m") 'gnus)
 
   ;; Org-mouse 
-  (quelpa '(org-mouse :fetcher github :repo "takaxp/org-mode"))
+  ;;(quelpa '(org-mouse :fetcher github :repo "takaxp/org-mode"))
 
   ;;(require 'org-mouse)
 
@@ -346,11 +347,19 @@
     )
   
   ;; ===== Org-drill =====
+  
+  (use-package org-drill
+    :ensure nil
+    :load-path "~/.emacs.d/org-drill/org-drill.el"
+    ;;:quelpa (org-drill :stable nil :fetcher file :path "~/.emacs.d/org-drill/org-drill.el")
+    )
 
-  ;;(quelpa 'org-drill)
-  (quelpa '(org-drill :fetcher file :path "~/.emacs.d/org-drill/org-drill.el"))
-  (quelpa '(org-drill-table :fetcher file :path "~/.emacs.d/org-drill-table/org-drill-table.el"))
-
+  (use-package org-drill-table
+    :ensure nil
+    :load-path "~/.emacs.d/org-drill-table/org-drill-table.el"
+    ;;(quelpa '(org-drill-table :fetcher file :path "~/.emacs.d/org-drill-table/org-drill-table.el"))
+    )
+  
   ;; ===== Org-wiki =====
 
   (add-to-list 'load-path (expand-file-name "org-wiki" emacs-main-dir))
