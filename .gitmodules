@@ -7,3 +7,6 @@
 [submodule "org-wiki"]
 	path = org-wiki
 	url = https://github.com/caiorss/org-wiki
+[submodule "org-drill-table"]
+	path = org-drill-table
+	url = https://github.com/chrisbarrett/org-drill-table.git
