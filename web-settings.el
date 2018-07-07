@@ -104,6 +104,15 @@
 (add-hook 'org-store-link-functions
           'owl/org-elfeed-entry-store-link)
 
+;; Browse article in gui browser instead of eww
+;; http://pragmaticemacs.com/emacs/to-eww-or-not-to-eww/
+(defun owl/elfeed-show-visit-gui ()
+  "Wrapper for elfeed-show-visit to use Firefox instead of eww"
+  (interactive)
+  (let ((browse-url-generic-program "/usr/bin/firefox"))
+    (elfeed-show-visit t)))
+
+(define-key elfeed-show-mode-map (kbd "B") 'owl/elfeed-show-visit-gui)
 
 ;; Stack Exchange client
 (use-package sx
