@@ -138,7 +138,8 @@
     :ensure org-plus-contrib
     :init
     ;; Org files targeted for agenda
-    (setq org-agenda-files (quote ("~/org/bugout.org" 
+    (setq org-agenda-files (quote ("~/org/bugout.org"
+				   "~/org/elfeed.org"
 				   "~/org/organizer.org"
 				   "~/org/food.org"
 				   "~/org/library.org"
@@ -255,6 +256,7 @@
   (setq org-refile-allow-creating-parent-nodes 'confirm)
 
   (setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 3)
+			     ("~/org/elfeed.org" :maxlevel . 3)
 			     ("~/org/food.org" :maxlevel . 3)
 			     ("~/org/organizer.org" :maxlevel . 3)
 			     ("~/org/music.org" :maxlevel . 3)
