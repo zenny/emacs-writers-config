@@ -212,7 +212,7 @@
 
 ;; Korean
 
-(set-fontset-font t 'hangul (font-spec :name "NanumMyeongjo-18"))
+(set-fontset-font t 'hangul (font-spec :name "NanumMyeongjo-16"))
 
 ;; German
 
