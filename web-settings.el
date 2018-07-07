@@ -91,6 +91,20 @@
     :ensure t
     ))
 
+;; org-capture for Elfeed
+(defun owl/org-elfeed-entry-store-link ()
+  (when elfeed-show-entry
+    (let* ((link (elfeed-entry-link elfeed-show-entry))
+           (title (elfeed-entry-title elfeed-show-entry)))
+      (org-store-link-props
+       :link link
+       :description title)
+      )))
+
+(add-hook 'org-store-link-functions
+          'owl/org-elfeed-entry-store-link)
+
+
 ;; Stack Exchange client
 (use-package sx
   :ensure t)
