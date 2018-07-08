@@ -89,30 +89,31 @@
   (define-key elfeed-show-mode-map (kbd "k") 'previous-line)
   (use-package elfeed-web
     :ensure t
-    ))
+    )
+  ;; org-capture for Elfeed
+  (defun owl/org-elfeed-entry-store-link ()
+    (when elfeed-show-entry
+      (let* ((link (elfeed-entry-link elfeed-show-entry))
+             (title (elfeed-entry-title elfeed-show-entry)))
+	(org-store-link-props
+	 :link link
+	 :description title)
+	)))
 
-;; org-capture for Elfeed
-(defun owl/org-elfeed-entry-store-link ()
-  (when elfeed-show-entry
-    (let* ((link (elfeed-entry-link elfeed-show-entry))
-           (title (elfeed-entry-title elfeed-show-entry)))
-      (org-store-link-props
-       :link link
-       :description title)
-      )))
+  (add-hook 'org-store-link-functions
+            'owl/org-elfeed-entry-store-link)
 
-(add-hook 'org-store-link-functions
-          'owl/org-elfeed-entry-store-link)
+  ;; Browse article in gui browser instead of eww
+  ;; http://pragmaticemacs.com/emacs/to-eww-or-not-to-eww/
+  (defun owl/elfeed-show-visit-gui ()
+    "Wrapper for elfeed-show-visit to use Firefox instead of eww"
+    (interactive)
+    (let ((browse-url-generic-program "/usr/bin/firefox"))
+      (elfeed-show-visit t)))
 
-;; Browse article in gui browser instead of eww
-;; http://pragmaticemacs.com/emacs/to-eww-or-not-to-eww/
-(defun owl/elfeed-show-visit-gui ()
-  "Wrapper for elfeed-show-visit to use Firefox instead of eww"
-  (interactive)
-  (let ((browse-url-generic-program "/usr/bin/firefox"))
-    (elfeed-show-visit t)))
+  (define-key elfeed-show-mode-map (kbd "B") 'owl/elfeed-show-visit-gui)
 
-(define-key elfeed-show-mode-map (kbd "B") 'owl/elfeed-show-visit-gui)
+  ) ;; Closing use-package
 
 ;; Stack Exchange client
 (use-package sx
