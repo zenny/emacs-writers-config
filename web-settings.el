@@ -85,13 +85,24 @@
     (setq rmh-elfeed-org-files (list "~/org/elfeed.org"))
     )
   :config
+  
+  ;; Default search filter: All feed items from a week ago that are unread
+  (setq-default elfeed-search-filter "@1-week-ago +unread ")
+
+  ;; Entries older than 2 weeks are marked as read
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :before "2 weeks ago"
+				:remove 'unread))
+
+  
   (define-key elfeed-show-mode-map (kbd "j") 'next-line)
   (define-key elfeed-show-mode-map (kbd "k") 'previous-line)
-  ;(use-package elfeed-goodies :ensure t :init (use-package ace-jump-mode :ensure t))
-  (use-package elfeed-web
-    :ensure t
-    )
-  ;; org-capture for Elfeed
+  
+  ;;(use-package elfeed-goodies :ensure t :init (use-package ace-jump-mode :ensure t))
+  
+  (use-package elfeed-web  :ensure t )
+  
+  ;; Org-capture for Elfeed
   (defun owl/org-elfeed-entry-store-link ()
     (when elfeed-show-entry
       (let* ((link (elfeed-entry-link elfeed-show-entry))
