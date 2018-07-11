@@ -87,6 +87,7 @@
   :config
   (define-key elfeed-show-mode-map (kbd "j") 'next-line)
   (define-key elfeed-show-mode-map (kbd "k") 'previous-line)
+  ;(use-package elfeed-goodies :ensure t :init (use-package ace-jump-mode :ensure t))
   (use-package elfeed-web
     :ensure t
     )
