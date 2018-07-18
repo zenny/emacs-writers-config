@@ -382,7 +382,9 @@
 (use-package neotree
   :ensure t
   :init
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  :bind ("<f8>" . neotree-toggle)
+  )
 
 ;; Use IBuffer
 
