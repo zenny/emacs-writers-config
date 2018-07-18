@@ -364,10 +364,25 @@
 (use-package interleave
   :ensure t)
 
-;; ===== Literate programming ======
+;; ===== Programming ======
 
+;; Project management
 
-;; ===== Buffer navigation & Ivy =====
+;; Projectile
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-require-project-root nil)
+  :config
+  (projectile-mode 1))
+
+;; ===== Navigation =====
+
+;; NeoTree
+(use-package neotree
+  :ensure t
+  :init
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
 
 ;; Use IBuffer
 
