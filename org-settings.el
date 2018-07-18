@@ -255,13 +255,14 @@
   ;; Allow on-the-fly creation of parent headings
   (setq org-refile-allow-creating-parent-nodes 'confirm)
 
-  (setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 3)
-			     ("~/org/elfeed.org" :maxlevel . 3)
-			     ("~/org/food.org" :maxlevel . 3)
-			     ("~/org/organizer.org" :maxlevel . 3)
-			     ("~/org/music.org" :maxlevel . 3)
-			     ("~/org/library.org" :maxlevel . 3)
-			     ("~/org/writing.org" :maxlevel . 3)))
+  (setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 5)
+			     ("~/org/elfeed.org" :maxlevel . 5)
+			     ("~/org/food.org" :maxlevel . 5)
+			     ("~/org/organizer.org" :maxlevel . 5)
+			     ("~/org/music.org" :maxlevel . 5)
+			     ("~/org/library.org" :maxlevel . 5)
+			     ("~/org/reference.org" :maxlevel . 8)
+			     ("~/org/writing.org" :maxlevel . 5)))
 
   ;; Allow parent node creation
   (setq org-refile-allow-creating-parent-nodes 'confirm)
