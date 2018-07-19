@@ -271,13 +271,15 @@
 
   ;; Uses code from https://github.com/lepisma/org-books to create reading tracking.
 
-  (use-package enlive
-    :ensure t)
-
-  (add-to-list 'load-path (expand-file-name "org-books" emacs-main-dir))
-  (require 'org-books)
-
-  (setq org-books-file "~/org/library.org")
+  (use-package org-books
+    :ensure nil
+    :load-path "org-books/"
+    :init
+    (use-package enlive
+      :ensure t)
+    :config
+    (setq org-books-file "~/org/library.org")
+    )
 
   ;;* ====== Orca ======
 
