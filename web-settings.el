@@ -87,7 +87,7 @@
   :config
   
   ;; Default search filter: All feed items from a week ago that are unread
-  (setq-default elfeed-search-filter "@1-week-ago +unread ")
+  (setq-default elfeed-search-filter "@1-week-ago +unread")
 
   ;; Entries older than 2 weeks are marked as read
   (add-hook 'elfeed-new-entry-hook
