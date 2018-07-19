@@ -46,12 +46,12 @@
 ;; Quelpa for grabbing and building packages from source (Github ...)
 
 ;; Bootstrap quelpa
-(if (require 'quelpa nil t)
-    (quelpa-self-upgrade)
-  (with-temp-buffer
-    (url-insert-file-contents
-     "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-    (eval-buffer)))
+;; (if (require 'quelpa nil t)
+;;     (quelpa-self-upgrade)
+;;   (with-temp-buffer
+;;     (url-insert-file-contents
+;;      "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
+;;     (eval-buffer)))
 
 ;; Make Quelpa prefer MELPA-stable over melpa. This is optional but
 ;; highly recommended.
