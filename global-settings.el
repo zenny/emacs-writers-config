@@ -384,6 +384,16 @@
   :init
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   :bind ("<f8>" . neotree-toggle)
+  :config
+  ;; Every time when the neotree window is opened, let it find current file and jump to node
+  (setq neo-smart-open t)
+  ;; Popwin -- currently warning about void with neo-persist-show 2018-07-19
+  ;; (when neo-persist-show
+  ;;   (add-hook 'popwin:before-popup-hook
+  ;; 	      (lambda () (setq neo-persist-show nil)))
+  ;;   (add-hook 'popwin:after-popup-hook
+  ;; 	      (lambda () (setq neo-persist-show t)))
+  ;;   )
   )
 
 ;; Use IBuffer
