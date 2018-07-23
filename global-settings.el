@@ -246,10 +246,11 @@
 ;; End annoying buffers with popwin
 (use-package popwin
   :ensure t
+  :init
+  (global-set-key (kbd "C-z") popwin:keymap)
   :config
-  (popwin-mode 1))
-
-(global-set-key (kbd "C-z") popwin:keymap)
+  (popwin-mode 1)
+  )
 
 ;; | Key    | Command                               |
 ;; |--------+---------------------------------------|
