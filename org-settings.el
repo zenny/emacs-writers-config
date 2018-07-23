@@ -441,6 +441,18 @@
   ;; (require 'ox-tufte-latex)
   (require 'ox-extra)
 
+  ;; A simple configuration to publish org-files under =~/org/= 
+  (setq org-publish-project-alist
+	'(("org"
+           :base-directory "~/org/"
+           :publishing-directory "~/org/org-html"
+           :publishing-function org-html-publish-to-html
+           :section-numbers nil
+           :with-toc nil
+           :html-head "<link rel=\"stylesheet\"
+                    href=\"./html-templates/org.css\"
+                    type=\"text/css\"/>")))
+  
   ) ; closing parens for use-package org; end of :config
 
 ;; Make org-settings visible for init and packages.el
