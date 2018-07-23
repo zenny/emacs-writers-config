@@ -143,6 +143,7 @@
 				   "~/org/organizer.org"
 				   "~/org/food.org"
 				   "~/org/library.org"
+				   "~/org/writing.org"
 				   "~/org/notebook/notebook.org")))
     ;; Record time task is finished when set to DONE
     (setq org-log-done 'time)
@@ -404,7 +405,20 @@
   ;;* ===== Publishing =====
 
   (require 'ox-latex)
+  (unless (boundp 'org-latex-classes)
+    (setq org-latex-classes nil))
+  (with-eval-after-load 'ox-latex
+    (add-to-list
+     'org-latex-classes
+     '(("tufte-simplified"
+	"\\documentclass[a4paper, sfsidenotes, justified, notitlepage]{book}
+     \\input{/home/owl/.emacs.d/user/tufte-simplified/tufte-simplified.cls}"
+	("\\part{%s}" . "\\part*{%s}")
+	("\\chapter{%s}" . "\\chapter*{%s}")
+	("\\section{%s}" . "\\section*{%s}")
+	("\\subsection{%s}" . "\\subsection*{%s}")))))
 
+  
   ;; This package converts the buffer text and the associated
   ;; decorations to HTML. Mail to hniksic@gmail.com to discuss features
   ;; and additions. All suggestions are more than welcome.
@@ -417,15 +431,21 @@
   ;;** Org-Tufte integration
 
   (require 'ox-tufte)
-  (add-to-list 'load-path (expand-file-name "tufte-org-mode" emacs-main-dir))
-  (require 'ox-tufte-latex)
+
+  (use-package ox-tufte-latex
+    :ensure nil
+    :load-path "tufte-org-mode/"
+    )
+  
+  ;; (add-to-list 'load-path (expand-file-name "tufte-org-mode" emacs-main-dir))
+  ;; (require 'ox-tufte-latex)
   (require 'ox-extra)
 
   ) ; closing parens for use-package org; end of :config
 
 ;; Make org-settings visible for init and packages.el
 
-(provide 'org-settings)
+  (provide 'org-settings)
 
-;; End of file
+  ;; End of file
 
