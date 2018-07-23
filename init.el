@@ -59,14 +59,14 @@
 ;; (setq quelpa-stable-p t)
 
 ;; Install quelpa-use-package, which will install use-package as well
-(quelpa
- '(quelpa-use-package
-   :fetcher github
-   :repo "quelpa/quelpa-use-package"
-   :stable nil))
-(require 'quelpa-use-package)
+;;(quelpa
+;; '(quelpa-use-package
+;;   :fetcher github
+;;   :repo "quelpa/quelpa-use-package"
+;;   :stable nil))
+;;(require 'quelpa-use-package)
 
-(quelpa-use-package-activate-advice)
+;;(quelpa-use-package-activate-advice)
 
 (setq load-prefer-newer t)
 
