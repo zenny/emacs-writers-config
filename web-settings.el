@@ -81,7 +81,8 @@
   (setq elfeed-use-curl t)
   (use-package elfeed-org
     :ensure t
-    :init 
+    :init
+    (elfeed-org)
     (setq rmh-elfeed-org-files (list "~/org/elfeed.org"))
     )
   :config
@@ -93,7 +94,6 @@
   (add-hook 'elfeed-new-entry-hook
             (elfeed-make-tagger :before "2 weeks ago"
 				:remove 'unread))
-
   
   (define-key elfeed-show-mode-map (kbd "j") 'next-line)
   (define-key elfeed-show-mode-map (kbd "k") 'previous-line)
