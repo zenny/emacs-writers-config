@@ -225,10 +225,10 @@
   (define-key global-map "\C-cc" 'org-capture)
 
   (setq org-capture-templates `(("t" "todo" entry
-				 (file+headline ,org-default-notes-file "Project")
+				 (file+headline ,org-default-notes-file "Project Deck")
 				 "* TODO %?\n%U" :clock-in t :clock-resume t)
 				("n" "note" entry
-				 (file+headline ,org-default-notes-file "Refile")
+				 (file+headline ,org-default-notes-file "Notes")
 				 "* %? :NOTE:\n%U" :clock-in t :clock-resume t)
 				("j" "notebook entry" entry
 				 (file+datetree "~/org/notebook/notebook.org")
@@ -238,12 +238,22 @@
 				 (file+headline "~/org/food.org" "Recipes")
 				 "* TOCOOK %?\n:PROPERTIES:\n:SOURCE: \n:SERVES: \n:END:\n** Ingredients\n** Preperation")
 				("p" "protocol" entry
-				 (file+headline ,org-default-notes-file "Refile")
+				 (file+headline ,org-default-notes-file "Notes")
+				 "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+				("c" "capture" entry
+				 (file "~/org/captures.org")
 				 "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
 				("L" "protocol link" entry
-				 (file+headline ,org-default-notes-file "Refile")
+				 (file "~/org/captures/captures.org")
 				 "* %? [[%:link][%:description]] \nCaptured On: %U")
 				))
+
+  ;; (defun do-org-board-dl-hook ()
+  ;;   (when (equal (buffer-name)
+  ;; 		 (concat "CAPTURE-" org-board-capture-file))
+  ;;     (org-board-archive)))
+
+  ;; (add-hook 'org-capture-before-finalize-hook 'do-org-board-dl-hook)
 
   ;;* ====== Refiling setup =====
 
@@ -251,23 +261,24 @@
 
   ;; Allow top-level refiling
   ;; See https://blog.aaronbieber.com/2017/03/19/organizing-notes-with-refile.html
+  (setq org-refile-use-outline-path 'file)
   (setq org-outline-path-complete-in-steps nil)
 
   ;; Allow on-the-fly creation of parent headings
   (setq org-refile-allow-creating-parent-nodes 'confirm)
-
-  (setq org-refile-targets '(("~/org/bugout.org" :maxlevel . 5)
-			     ("~/org/elfeed.org" :maxlevel . 5)
-			     ("~/org/food.org" :maxlevel . 5)
-			     ("~/org/organizer.org" :maxlevel . 5)
-			     ("~/org/music.org" :maxlevel . 5)
-			     ("~/org/library.org" :maxlevel . 5)
-			     ("~/org/reference.org" :maxlevel . 8)
-			     ("~/org/writing.org" :maxlevel . 5)))
-
-  ;; Allow parent node creation
-  (setq org-refile-allow-creating-parent-nodes 'confirm)
-
+  
+  (setq org-refile-targets '(("~/org/organizer.org" :maxlevel . 5)
+			     ("~/org/captures.org" :maxlevel . 5)
+			     ("~/org/areas/food/food.org" :maxlevel . 5)
+			     ("~/org/areas/freelance/freelance.org" :maxlevel . 5)
+			     ("~/org/areas/writing.org" :maxlevel . 5)
+			     ("~/org/projects/ettelon/ettelon.org" :maxlevel . 5)
+			     ("~/org/resources/notes/music.org" :maxlevel . 5)
+			     ("~/org/resources/notes/library.org" :maxlevel . 5)
+			     ("~/org/resources/notes/reference.org" :maxlevel . 8)
+			     ("~/org/resources/notes/survival.org" :maxlevel . 5)
+			     ))
+  
   ;;* ===== Reading list managmeent ======
 
   ;; Uses code from https://github.com/lepisma/org-books to create reading tracking.
@@ -351,9 +362,9 @@
     (setq org-brain-visualize-default-choices 'all)
     (setq org-brain-title-max-length 12)
     )
-  
+
   ;; ===== Org-drill =====
-  
+
   (use-package org-drill
     :ensure nil
     :load-path "~/.emacs.d/org-drill/org-drill.el"
@@ -365,7 +376,7 @@
     :load-path "~/.emacs.d/org-drill-table/org-drill-table.el"
     ;;(quelpa '(org-drill-table :fetcher file :path "~/.emacs.d/org-drill-table/org-drill-table.el"))
     )
-  
+
   ;; ===== Org-wiki =====
 
   (add-to-list 'load-path (expand-file-name "org-wiki" emacs-main-dir))
@@ -418,7 +429,7 @@
 	("\\section{%s}" . "\\section*{%s}")
 	("\\subsection{%s}" . "\\subsection*{%s}")))))
 
-  
+
   ;; This package converts the buffer text and the associated
   ;; decorations to HTML. Mail to hniksic@gmail.com to discuss features
   ;; and additions. All suggestions are more than welcome.
@@ -436,7 +447,7 @@
     :ensure nil
     :load-path "tufte-org-mode/"
     )
-  
+
   ;; (add-to-list 'load-path (expand-file-name "tufte-org-mode" emacs-main-dir))
   ;; (require 'ox-tufte-latex)
   (require 'ox-extra)
@@ -452,7 +463,7 @@
            :html-head "<link rel=\"stylesheet\"
                     href=\"./html-templates/org.css\"
                     type=\"text/css\"/>")))
-  
+
   ) ; closing parens for use-package org; end of :config
 
 ;; Make org-settings visible for init and packages.el
