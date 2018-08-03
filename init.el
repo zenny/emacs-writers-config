@@ -41,7 +41,7 @@
 (let ((default-directory emacs-main-dir))
   (shell-command "git submodule update --init"))
 
-(require 'bootstrap)
+;;(require 'bootstrap)
 
 ;; Quelpa for grabbing and building packages from source (Github ...)
 
