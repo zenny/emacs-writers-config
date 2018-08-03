@@ -138,19 +138,18 @@
     :ensure org-plus-contrib
     :init
     ;; Org files targeted for agenda
-    (setq org-agenda-files (quote ("~/org/bugout.org"
-				   "~/org/elfeed.org"
-				   "~/org/organizer.org"
-				   "~/org/food.org"
-				   "~/org/library.org"
+    (setq org-agenda-files (quote ("~/org/organizer.org"
+				   "~/areas/food/food.org"
+				   "~/org/reading.org"
 				   "~/org/writing.org"
 				   "~/org/notebook/notebook.org")))
+    
     ;; Record time task is finished when set to DONE
     (setq org-log-done 'time)
     (setq org-upcoming-deadline '(:foreground "blue" :weight bold))
     :config
-    ;; Org-super-agenda
 
+    ;; Org-super-agenda
     (use-package org-super-agenda
       :ensure t
       :config
