@@ -417,16 +417,17 @@
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
     (setq org-latex-classes nil))
-  (with-eval-after-load 'ox-latex
-    (add-to-list
-     'org-latex-classes
-     '(("tufte-simplified"
-	"\\documentclass[a4paper, sfsidenotes, justified, notitlepage]{book}
-     \\input{/home/owl/.emacs.d/user/tufte-simplified/tufte-simplified.cls}"
-	("\\part{%s}" . "\\part*{%s}")
-	("\\chapter{%s}" . "\\chapter*{%s}")
-	("\\section{%s}" . "\\section*{%s}")
-	("\\subsection{%s}" . "\\subsection*{%s}")))))
+
+  ;; (with-eval-after-load 'ox-latex
+  ;;   (add-to-list
+  ;;    'org-latex-classes
+  ;;    '(("tufte-simplified"
+  ;; 	"\\documentclass[a4paper, sfsidenotes, justified, notitlepage]{book}
+  ;;    \\input{/home/owl/.emacs.d/user/tufte-simplified/tufte-simplified.cls}"
+  ;; 	("\\part{%s}" . "\\part*{%s}")
+  ;; 	("\\chapter{%s}" . "\\chapter*{%s}")
+  ;; 	("\\section{%s}" . "\\section*{%s}")
+  ;; 	("\\subsection{%s}" . "\\subsection*{%s}")))))
 
 
   ;; This package converts the buffer text and the associated
@@ -451,19 +452,48 @@
   ;; (require 'ox-tufte-latex)
   (require 'ox-extra)
 
-  ;; A simple configuration to publish org-files under =~/org/= 
+  ;; Publish ~/org to ~/org-html as HTML
   (setq org-publish-project-alist
-	'(("org"
+	'(("org-central"
            :base-directory "~/org/"
-           :publishing-directory "~/org/org-html"
+           :publishing-directory "~/private-html/"
            :publishing-function org-html-publish-to-html
            :section-numbers nil
-           :with-toc nil
+	   :recursive nil
+           :with-toc nil 
            :html-head "<link rel=\"stylesheet\"
-                    href=\"./html-templates/org.css\"
-                    type=\"text/css\"/>")))
-
-  ) ; closing parens for use-package org; end of :config
+                    href=\"./css/org.css\"
+                    type=\"text/css\"/>")
+	  ("org-notebook"
+           :base-directory "~/org/notebook"
+           :publishing-directory "~/private-html/"
+           :publishing-function org-html-publish-to-html
+           :section-numbers nil
+	   :recursive nil
+           :with-toc t 
+           :html-head "<link rel=\"stylesheet\"
+                    href=\"./css/tufte.css\"
+                    type=\"text/css\"/>")
+	  ("org-static"
+	   :base-directory "~/org/img/"
+	   :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+	   :publishing-directory "~/private-html/img/"
+	   :recursive t
+	   :publishing-function org-publish-attachment
+	   )
+	  ("org-notebook-static"
+	   :base-directory "~/org/notebook/img/"
+	   :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+	   :publishing-directory "~/private-html/notebook/img/"
+	   :recursive t
+	   :publishing-function org-publish-attachment
+	   )
+	  ("org" :components ("org-notes" "org-static"))
+	  ))
+  
+  ;; ====== End of :config ======
+  
+  ) ; closing parens for use-package org
 
 ;; Make org-settings visible for init and packages.el
 
