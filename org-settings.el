@@ -256,32 +256,20 @@
 				 :prepend nil
 				 :empty-lines 0
 				 :created t
-				 )
-				("p"
-				 "protocol"
-				 entry
-				 (file+headline ,org-default-notes-file "Notes")
-				 "* %^{Title}\n:PROPERTIES:Source: %u, %c:END:\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n%?"
-				 :prepend nil
-				 :empty-lines 0
-				 :created t
-				 )
+				 )				
 				("e"
 				 "elfeed"
 				 entry
 				 (file "~/org/captures/captures.org")
-				 "* %a  %^G \n:LOGBOOK:\n:CAPTURED: %U\n:END:\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE" 
+				 "* %a  %^G \n:LOGBOOK:\n:CAPTURED: %U\n:END:\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n" 
 				 :prepend nil
 				 :empty-lines 0
 				 :created t
 				 )
-				("L" "protocol link" entry
-				 (file "~/org/captures/captures.org")
-				 "*%? [[%:link][%:description]] \n:LOGBOOK:\n:CAPTURED: %U\n:END:"
-				 :prepend nil
-				 :empty-lines 0
-				 :created t
-				 )
+				("p" "Protocol" entry (file "~/org/captures/captures.org")
+				 "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+				("L" "Protocol Link" entry (file "~/org/captures/captures.org")
+				 "* %? [[%:link][%:description]] \nCaptured On: %U")				
 				))
 
   ;; (defun owl/elfeed-entry-as-html-link ()
