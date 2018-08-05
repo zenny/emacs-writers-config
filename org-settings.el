@@ -223,30 +223,79 @@
   (setq org-default-notes-file (concat org-directory "/organizer.org"))
   (define-key global-map "\C-cc" 'org-capture)
 
-  (setq org-capture-templates `(("t" "todo" entry
-				 (file+headline ,org-default-notes-file "Project Deck")
-				 "* TODO %?\n%U" :clock-in t :clock-resume t)
-				("n" "note" entry
+  (setq org-capture-templates `(("t"                                                                         ; key
+				 "todo"                                                                      ; description
+				 entry                                                                       ; type
+				 (file+headline ,org-default-notes-file "Deck")                              ; target
+				 "* TODO [#B] %^{Todo} \n:LOGBOOK:\n:CREATED: %U\n:END:"  ; template
+				 :prepend nil          ; properties
+				 :empty-lines 0        ; properties
+				 :created t            ; properties
+				 )
+				("n"
+				 "note"
+				 entry
 				 (file+headline ,org-default-notes-file "Notes")
-				 "* %? :NOTE:\n%U" :clock-in t :clock-resume t)
-				("j" "notebook entry" entry
+				 "* %? :NOTE:\n:LOGBOOK:\n:CREATED: %U\n:END:"
+				 :prepend nil
+				 :empty-lines 0
+				 :created t
+				 )
+				("j"
+				 "notebook entry"
+				 entry
 				 (file+datetree "~/org/notebook/notebook.org")
 				 "* %?"
-				 :empty-lines 1)
-				("r" "recipe" entry
+				 :empty-lines 1
+				 )
+				("r"
+				 "recipe"
+				 entry
 				 (file+headline "~/org/food.org" "Recipes")
-				 "* TOCOOK %?\n:PROPERTIES:\n:SOURCE: \n:SERVES: \n:END:\n** Ingredients\n** Preperation")
-				("p" "protocol" entry
+				 "* TOCOOK %?\n:LOGBOOK:\n:CREATED: %U\n:END:\n:PROPERTIES:\n:SOURCE: \n:SERVES: \n:END:\n** Ingredients\n** Preparation"
+				 :prepend nil
+				 :empty-lines 0
+				 :created t
+				 )
+				("p"
+				 "protocol"
+				 entry
 				 (file+headline ,org-default-notes-file "Notes")
-				 "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-				("c" "capture" entry
-				 (file "~/org/captures.org")
-				 "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+				 "* %^{Title}\n:PROPERTIES:Source: %u, %c:END:\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n%?"
+				 :prepend nil
+				 :empty-lines 0
+				 :created t
+				 )
+				("e"
+				 "elfeed"
+				 entry
+				 (file "~/org/captures/captures.org")
+				 "* %a  %^G \n:LOGBOOK:\n:CAPTURED: %U\n:END:\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE" 
+				 :prepend nil
+				 :empty-lines 0
+				 :created t
+				 )
 				("L" "protocol link" entry
 				 (file "~/org/captures/captures.org")
-				 "* %? [[%:link][%:description]] \nCaptured On: %U")
+				 "*%? [[%:link][%:description]] \n:LOGBOOK:\n:CAPTURED: %U\n:END:"
+				 :prepend nil
+				 :empty-lines 0
+				 :created t
+				 )
 				))
 
+  ;; (defun owl/elfeed-entry-as-html-link ()
+  ;;   "Store an http link to an elfeed entry"
+  ;;   (when (equal major-mode 'elfeed-show-mode)
+  ;;     (let ((description (elfeed-entry-title elfeed-show-entry))
+  ;; 	    (link (elfeed-entry-link elfeed-show-entry)))
+  ;; 	(org-store-link-props
+  ;; 	 :type "http"
+  ;; 	 :link link
+  ;; 	 :description description))))
+
+  ;; (add-hook 'org-store-link-functions 'owl/elfeed-entry-as-html-link)
+  
   ;; (defun do-org-board-dl-hook ()
   ;;   (when (equal (buffer-name)
   ;; 		 (concat "CAPTURE-" org-board-capture-file))
