@@ -307,6 +307,8 @@
 			     ("~/org/captures.org" :maxlevel . 5)
 			     ("~/org/areas/food/food.org" :maxlevel . 5)
 			     ("~/org/areas/freelance/freelance.org" :maxlevel . 5)
+			     ("~/org/areas/reading.org" :maxlevel . 5)
+			     ("~/org/areas/teaching.org" :maxlevel . 5)
 			     ("~/org/areas/writing.org" :maxlevel . 5)
 			     ("~/org/projects/ettelon/ettelon.org" :maxlevel . 5)
 			     ("~/org/resources/notes/music.org" :maxlevel . 5)
