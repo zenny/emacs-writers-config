@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "org-super-agenda" "20180901.40" "Supercharge your agenda" '((emacs "25.1") (s "1.10.0") (dash "2.13") (org "9.0") (ht "2.2")) :commit "ffb8fbd70e72d2b0e51a8e652502daca8c268558" :keywords '("hypermedia" "outlines" "org" "agenda") :authors '(("Adam Porter" . "adam@alphapapa.net")) :maintainer '("Adam Porter" . "adam@alphapapa.net") :url "http://github.com/alphapapa/org-super-agenda")
