@@ -216,7 +216,7 @@
   (use-package org-habit
     :ensure org-plus-contrib)
 
-  ;;* ===== Capture =====
+  ;; ===== Capture =====
 
   (require 'org-protocol)
 
@@ -316,8 +316,38 @@
 			     ("~/org/resources/notes/reference.org" :maxlevel . 8)
 			     ("~/org/resources/notes/survival.org" :maxlevel . 5)
 			     ))
+
+  ;; ====== Tagging ======
+
+  (setq org-agenda-custom-commands
+	'(("g" . "GTD contexts")
+          ("go" "Office" tags-todo "@office")
+          ("gc" "Computer" tags-todo "@computer")
+          ("gp" "Phone" tags-todo "@phone")
+          ("gh" "Home" tags-todo "@home")
+          ("ge" "Errands" tags-todo "@errands")
+	  ("gw" "Writing" tags-todo "@writing")
+          ("G" "GTD Block Agenda"
+           ((tags-todo "@office")
+            (tags-todo "@computer")
+            (tags-todo "@phone")
+            (tags-todo "@home")
+            (tags-todo "@errands")
+	    (tags-todo "@writing"))
+           nil                      ;; i.e., no local settings
+           ("~/next-actions.html")) ;; exports block to this file with C-c a e
+	  ;; ..other commands here
+          ))
   
-  ;;* ===== Reading list managmeent ======
+  (setq org-tag-alist '(("@home" . ?h)
+			("@office" . ?o)
+			("@computer" .?c)
+			("@phone" . ?p)
+			("@email" . ?m)
+			("@writing" . ?w)
+			("@errands" . ?e)))
+
+  ;; ====== Reading list managmeent ======
 
   ;; Uses code from https://github.com/lepisma/org-books to create reading tracking.
 
@@ -529,14 +559,14 @@
 	   )
 	  ("org" :components ("org-notes" "org-static"))
 	  ))
-  
+
   ;; ====== End of :config ======
-  
+
   ) ; closing parens for use-package org
 
 ;; Make org-settings visible for init and packages.el
 
-  (provide 'org-settings)
+(provide 'org-settings)
 
-  ;; End of file
+;; End of file
 
