@@ -481,7 +481,17 @@
   (use-package ebib
     :ensure t)
 
-  ;;* ===== Publishing =====
+  ;; ===== Org-trello ======
+
+  (use-package org-trello
+    :ensure t
+    :init
+    (custom-set-variables '(org-trello-files '("~/org/organizer.org"
+					       "~/projects/parade-project/parade-project.org"
+					       "~/areas/teaching/teaching-htmma.org")))
+    :config)
+  
+  ;; ===== Publishing =====
 
   (require 'ox-latex)
   (unless (boundp 'org-latex-classes)
