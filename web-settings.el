@@ -18,6 +18,7 @@
           ("salesforce\.com" . browse-url-generic)
           ("stackoverflow\.com" . browse-url-generic)
           ("apache\.org\/jira" . browse-url-generic)
+	  ("trello.com" . browse-url-generic)
           ("thepoachedegg\.net" . browse-url-generic)
           ("zoom.us" . browse-url-generic)
           ("t.co" . browse-url-generic)
