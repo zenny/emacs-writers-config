@@ -486,8 +486,7 @@
   (use-package org-trello
     :ensure t
     :init
-    (custom-set-variables '(org-trello-files '("~/org/organizer.org"
-					       "~/projects/parade-project/parade-project.org"
+    (custom-set-variables '(org-trello-files '("~/projects/parade-project/parade-project.org"
 					       "~/areas/teaching/teaching-htmma.org")))
     :config)
   
