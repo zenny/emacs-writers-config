@@ -1,4 +1,4 @@
-;;;  ====== Global settings =====
+;;; Global settings --- Summary
 
 ;; ======  Personal information ======
 
@@ -129,6 +129,18 @@
 (setq owl/themes '(flatui-dark flatui doom-peacock doom-tomorrow-night cyberpunk doom-one-light leuven eink))
 (setq owl/themes-index 0)
 
+;; (use-package poet-theme
+;;   :ensure nil
+;;   :load-path "~/.emacs.d/user/poet/"
+;;   :init
+;;   )
+
+;;(add-hook 'poet-theme-hook 'olivetti-mode)
+;; (use-package typo
+;;   :ensure t
+;;   :init (typo-mode 1))
+
+
 ;; Function to cycle through themes
 (defun owl/cycle-theme ()
   (interactive)
@@ -162,12 +174,17 @@
   (setq buffer-face-mode-face '(:family "GentiumPlus" :height 100))
   (buffer-face-mode))
 
-;; Use monospaced font faces in current buffer
+;; ;; Use monospaced font faces in current buffer
 (defun my-buffer-face-mode-fixed ()
   "Sets a fixed width (monospace) font in current buffer"
   (interactive)
   (setq buffer-face-mode-face '(:family "Input Mono" :height 100))
   (buffer-face-mode))
+
+;; Use variable pitch mode in org-mode buffers
+;; (add-hook 'text-mode-hook
+;;           (lambda ()
+;;             (variable-pitch-mode 1)))
 
 ;; Set default font faces for Info and ERC modes
 (add-hook 'erc-mode-hook 'my-buffer-face-mode-variable)

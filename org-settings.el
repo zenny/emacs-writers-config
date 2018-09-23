@@ -142,7 +142,8 @@
 				   "~/areas/food/food.org"
 				   "~/org/reading.org"
 				   "~/org/writing.org"
-				   "~/org/notebook/notebook.org")))
+				   "~/org/notebook/notebook.org"
+				   "~/areas/teaching/admin-tasks.org")))
     
     ;; Record time task is finished when set to DONE
     (setq org-log-done 'time)
@@ -487,7 +488,7 @@
     :ensure t
     :init
     (custom-set-variables '(org-trello-files '("~/projects/parade-project/parade-project.org"
-					       "~/areas/teaching/teaching-htmma.org")))
+					       "~/areas/teaching/admin-tasks.org")))
     :config)
   
   ;; ===== Publishing =====
